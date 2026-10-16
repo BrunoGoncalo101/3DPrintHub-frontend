@@ -1,0 +1,68 @@
+.rodape {
+  padding: 16px 24px 10px;
+  background-color: var(--cor-fundo);
+  border-top: 1px solid var(--cor-borda);
+}
+
+/* 3 colunas lado a lado */
+.rodape-colunas {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+.rodape-marca {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.rodape-logo {
+  width: 20px;
+  height: 20px;
+}
+
+.rodape-descricao {
+  margin: 6px 0 0;
+  max-width: 300px;
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--cor-texto-secundario);
+}
+
+.rodape-titulo {
+  margin: 0 0 6px;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.rodape-lista {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 11px;
+  line-height: 1.7;
+  color: var(--cor-texto-secundario);
+}
+
+.rodape-lista a:hover {
+  color: var(--cor-secundaria);
+}
+
+.rodape-copyright {
+  margin: 8px 0 0;
+  font-size: 10px;
+  color: var(--cor-texto-secundario);
+}
+
+/* No telemóvel, as colunas ficam umas por baixo das outras */
+@media (max-width: 700px) {
+  .rodape-colunas {
+    grid-template-columns: 1fr;
+  }
+}

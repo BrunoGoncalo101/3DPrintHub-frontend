@@ -1,0 +1,119 @@
+.cartao-produto {
+  width: 100%;
+  max-width: 300px;
+  background-color: var(--cor-fundo);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-cartao);
+  overflow: hidden;
+}
+
+/* Parte de cima: imagem com a etiqueta do material */
+.cartao-imagem {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+.cartao-imagem img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--raio);
+}
+
+.cartao-sem-imagem {
+  font-size: 22px;
+  color: var(--cor-texto-secundario);
+}
+
+.cartao-material {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 2px 6px;
+  font-family: monospace;
+  font-size: 10px;
+  color: var(--cor-secundaria);
+  background-color: var(--cor-cartao);
+  border: 1px solid var(--cor-borda);
+  border-radius: 4px;
+}
+
+/* Parte de baixo: textos e preço */
+.cartao-info {
+  padding: 12px;
+  background-color: var(--cor-cartao);
+}
+
+.cartao-detalhes {
+  display: flex;
+  justify-content: space-between;
+  font-family: monospace;
+  font-size: 11px;
+  color: var(--cor-texto-secundario);
+}
+
+.cartao-camada {
+  color: var(--cor-secundaria);
+}
+
+.cartao-nome {
+  display: block;
+  margin-top: 4px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.cartao-nome:hover {
+  color: var(--cor-secundaria);
+}
+
+.cartao-descricao {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: var(--cor-texto-secundario);
+}
+
+.cartao-rodape {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--cor-borda);
+}
+
+.cartao-preco {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.cartao-preco-antigo {
+  margin-left: 6px;
+  font-family: monospace;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--cor-texto-secundario);
+  text-decoration: line-through;
+}
+
+.cartao-adicionar {
+  width: 28px;
+  height: 28px;
+  font-size: 16px;
+  color: var(--cor-texto);
+  background-color: transparent;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  cursor: pointer;
+}
+
+.cartao-adicionar:hover {
+  border-color: var(--cor-secundaria);
+  color: var(--cor-secundaria);
+}
