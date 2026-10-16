@@ -16,6 +16,24 @@ const garantias = [
   { icone: "square_foot", titulo: "Precisão ±0.05 mm", texto: "Inspeção dimensional" },
   { icone: "engineering", titulo: "Suporte Técnico", texto: "Revisão por engenheiros" },
 ];
+// Passo a passo do processo de impressão 3D
+const passos = [
+  {
+    numero: "01 / UPLOAD",
+    titulo: "Upload do Ficheiro 3D",
+    texto: "Carrega formatos .STL, .OBJ ou .STEP. O motor avalia espessuras mínimas, integridade da malha e orientação em segundos.",
+  },
+  {
+    numero: "02 / CONFIGURAÇÃO",
+    titulo: "Tecnologia e Polímero",
+    texto: "Escolhe entre FDM de precisão, Resina SLA 8K ou Nylon PA12-CF. Define densidade de preenchimento e acabamentos.",
+  },
+  {
+    numero: "03 / EXPEDIÇÃO",
+    titulo: "Produção e Envio 24h",
+    texto: "Fabrico em sala de ambiente controlado, verificação metrológica individual e embalagem industrial com envio rastreado.",
+  },
+];
 
 export default function Home() {
     const destaques = produtos.slice(0, 4);
@@ -80,6 +98,27 @@ export default function Home() {
           <div className="destaques-grelha">
             {destaques.map((produto) => (
               <ProductCard key={produto.id} produto={produto} />
+            ))}
+          </div>
+        </div>
+      </section>
+      {/* 4. Passo a passo */}
+      <section className="home-secao home-secao-escura">
+        <div className="home-conteudo">
+          <p className="secao-etiqueta etiqueta-violeta">Workflow Automatizado</p>
+          <h2 className="secao-titulo">Como Funciona o Serviço Sob Medida</h2>
+          <p className="secao-texto">
+            Do teu ficheiro CAD para a tua morada num fluxo rastreado por telemetria e
+            controlo dimensional.
+          </p>
+
+          <div className="passos-grelha">
+            {passos.map((passo) => (
+              <div key={passo.numero} className="passo">
+                <p className="passo-numero">{passo.numero}</p>
+                <h3 className="passo-titulo">{passo.titulo}</h3>
+                <p className="passo-texto">{passo.texto}</p>
+              </div>
             ))}
           </div>
         </div>

@@ -192,3 +192,50 @@
 .destaques-grelha .cartao-produto {
   max-width: none;
 }
+
+/* Secção do passo a passo para impressão 3D */
+
+.home-secao-escura {
+  background-color: #080b12;
+}
+
+.home-secao .etiqueta-violeta {
+  color: #818cf8;
+}
+
+.home-secao .secao-texto {
+  margin: -24px 0 48px;
+  font-size: 14px;
+  color: var(--cor-texto-secundario);
+}
+
+.passos-grelha {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+/* Linha vertical entre os passos (todos menos o primeiro) */
+.passo + .passo {
+  padding-left: 32px;
+  border-left: 1px solid var(--cor-borda);
+}
+
+.passo-numero {
+  margin-bottom: 12px;
+  font-family: monospace;
+  font-size: 12px;
+  color: var(--cor-texto-secundario);
+}
+
+.passo-titulo {
+  margin: 0 0 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.home-secao .passo-texto {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--cor-texto-secundario);
+}
