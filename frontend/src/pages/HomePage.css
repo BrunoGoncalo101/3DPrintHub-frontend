@@ -239,3 +239,26 @@
   line-height: 1.6;
   color: var(--cor-texto-secundario);
 }
+/* ---------- Telemóvel e ecrãs pequenos ---------- */
+
+@media (max-width: 900px) {
+  .topo-titulo {
+    font-size: 36px;
+  }
+
+  .garantias-grelha,
+  .destaques-grelha {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .passos-grelha {
+    grid-template-columns: 1fr;
+  }
+
+  /* Sem linhas verticais quando os blocos ficam uns por baixo dos outros */
+  .garantia + .garantia,
+  .passo + .passo {
+    padding-left: 0;
+    border-left: none;
+  }
+}
