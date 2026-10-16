@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import "./HomePage.css";
+import ProductCard from "../components/ProductCard.jsx";
+import produtos from "../mocks/produtos.js";
 
 // Os 3 números da secção de topo
 const numeros = [
@@ -16,6 +18,7 @@ const garantias = [
 ];
 
 export default function Home() {
+    const destaques = produtos.slice(0, 4);
   return (
     <>
       {/* 1. Topo */}
@@ -66,6 +69,19 @@ export default function Home() {
               </div>
             </div>
           ))}
+        </div>
+      </section>
+       {/* 3. Produtos em destaque */}
+      <section className="home-secao">
+        <div className="home-conteudo">
+          <p className="secao-etiqueta">Catálogo Selecionado</p>
+          <h2 className="secao-titulo">Modelos e Criações Prontas a Imprimir</h2>
+
+          <div className="destaques-grelha">
+            {destaques.map((produto) => (
+              <ProductCard key={produto.id} produto={produto} />
+            ))}
+          </div>
         </div>
       </section>
     </>

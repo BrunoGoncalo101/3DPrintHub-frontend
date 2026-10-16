@@ -161,3 +161,34 @@
 .garantia-texto {
   font-size: 11px;
 }
+/*Secção de produtos em destaque*/
+
+.home-secao {
+  padding: 64px 0;
+}
+
+.secao-etiqueta {
+  margin-bottom: 4px;
+  font-family: monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--cor-secundaria);
+}
+
+.secao-titulo {
+  margin: 0 0 32px;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.destaques-grelha {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+/* Os cartões ocupam a coluna toda da grelha */
+.destaques-grelha .cartao-produto {
+  max-width: none;
+}
