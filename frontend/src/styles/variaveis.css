@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined");
 
 :root {
   --cor-principal: #7928ca;
@@ -57,4 +58,9 @@ a {
 
 main {
   flex: 1;
+}
+/* Icons da Google*/
+.material-symbols-outlined {
+  font-size: 18px;
+  line-height: 1;
 }
