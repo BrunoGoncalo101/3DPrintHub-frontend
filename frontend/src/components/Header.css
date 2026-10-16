@@ -1,0 +1,89 @@
+.cabecalho {
+  background-color: var(--cor-fundo);
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+/* Linha de cima: marca à esquerda, carrinho à direita */
+.cabecalho-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 44px;
+  padding: 0 24px;
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.marca-logo {
+  width: 32px;
+  height: 32px;
+}
+
+.marca-nome {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.marca-slogan {
+  margin: 0;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--cor-texto-secundario);
+}
+
+.botao-carrinho {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+}
+
+.botao-carrinho:hover {
+  border-color: var(--cor-secundaria);
+}
+
+.carrinho-contador {
+  padding: 0 6px;
+  font-size: 10px;
+  background-color: var(--cor-principal-hover);
+  border-radius: 999px;
+}
+
+/* Linha de baixo: menu de navegação */
+.cabecalho-menu {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 36px;
+  padding: 0 24px;
+}
+
+.cabecalho-menu a {
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--cor-texto-secundario);
+  border-radius: var(--raio);
+}
+
+.cabecalho-menu a:hover {
+  color: var(--cor-texto);
+}
+
+/* O NavLink põe a classe "active" no link da página atual */
+.cabecalho-menu a.active {
+  color: var(--cor-texto);
+  background-color: var(--cor-cartao);
+}
