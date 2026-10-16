@@ -5,6 +5,8 @@
   border: 1px solid var(--cor-borda);
   border-radius: var(--raio-cartao);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Parte de cima: imagem com a etiqueta do material */
@@ -116,4 +118,22 @@
 .cartao-adicionar:hover {
   border-color: var(--cor-secundaria);
   color: var(--cor-secundaria);
+}
+/* A parte de baixo estica até ao fundo do cartão */
+.cartao-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* O preço e o botão + ficam sempre colados ao fundo */
+.cartao-rodape {
+  margin-top: auto;
+}
+
+/* Descrição numa só linha, com "..." se for comprida (como na mockup) */
+.cartao-descricao {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
