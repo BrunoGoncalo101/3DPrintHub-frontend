@@ -1,0 +1,129 @@
+/* ---------- Geral ---------- */
+
+/* Limita a largura do conteúdo e centra-o */
+.home-conteudo {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.home-topo,
+.home-garantias,
+.home-secao {
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+.home-topo p,
+.home-garantias p,
+.home-secao p {
+  margin: 0;
+}
+
+/* ---------- 1. Topo ---------- */
+
+.home-topo {
+  padding: 56px 0 80px;
+}
+
+.topo-titulo {
+  max-width: 760px;
+  margin: 0 0 24px;
+  font-size: 58px;
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -1px;
+}
+
+/* Texto com as cores em degradé (o fundo é recortado pelas letras) */
+.texto-gradiente {
+  background: linear-gradient(to right, #38bdf8, #818cf8, #c084fc);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.home-topo .topo-texto {
+  max-width: 576px;
+  margin-bottom: 32px;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--cor-texto-secundario);
+}
+
+.topo-botoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 48px;
+}
+
+/* Botão com contorno em degradé: o fundo do link é o degradé
+   e o span de dentro tapa tudo menos 1px à volta */
+.botao-gradiente {
+  padding: 1px;
+  border-radius: var(--raio);
+  background: linear-gradient(to right, #38bdf8, #818cf8, #a855f7);
+}
+
+.botao-gradiente > span,
+.botao-contorno {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.botao-gradiente > span {
+  border-radius: 7px;
+  background-color: var(--cor-fundo);
+}
+
+.botao-gradiente .material-symbols-outlined {
+  font-size: 16px;
+  color: var(--cor-secundaria);
+}
+
+.botao-contorno {
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  color: var(--cor-texto-secundario);
+}
+
+.botao-gradiente:hover > span {
+  background-color: var(--cor-cartao);
+}
+
+.botao-contorno:hover {
+  color: var(--cor-texto);
+  border-color: var(--cor-texto-secundario);
+}
+
+.topo-numeros {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  max-width: 512px;
+  padding-top: 24px;
+  border-top: 1px solid var(--cor-borda);
+}
+
+/* Linha vertical entre os números (todos menos o primeiro) */
+.topo-numeros > div + div {
+  padding-left: 24px;
+  border-left: 1px solid var(--cor-borda);
+}
+
+.numero-valor {
+  font-family: monospace;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.home-topo .numero-legenda {
+  margin-top: 4px;
+  font-family: monospace;
+  font-size: 11px;
+  color: var(--cor-texto-secundario);
+}
+
