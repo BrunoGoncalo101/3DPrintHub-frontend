@@ -1,11 +1,18 @@
 import { Link } from "react-router-dom";
 import "./HomePage.css";
 
-// Os 3 números do topo: cada item da lista vira um bloco com .map()
+// Os 3 números da secção de topo
 const numeros = [
   { valor: "15.000+", legenda: "Peças fabricadas" },
   { valor: "4.9 / 5.0", legenda: "Índice de precisão" },
   { valor: "±0.05 mm", legenda: "Tolerância dimensional" },
+];
+// As 4 garantias da secção de topo
+const garantias = [
+  { icone: "local_shipping", titulo: "Despacho 24/48h", texto: "Portugal e Espanha" },
+  { icone: "verified", titulo: "Materiais Certificados", texto: "Polímeros industriais ISO" },
+  { icone: "square_foot", titulo: "Precisão ±0.05 mm", texto: "Inspeção dimensional" },
+  { icone: "engineering", titulo: "Suporte Técnico", texto: "Revisão por engenheiros" },
 ];
 
 export default function Home() {
@@ -45,6 +52,20 @@ export default function Home() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+         {/* 2. Barra de garantias */}
+      <section className="home-garantias">
+        <div className="home-conteudo garantias-grelha">
+          {garantias.map((item) => (
+            <div key={item.titulo} className="garantia">
+              <span className="material-symbols-outlined">{item.icone}</span>
+              <div>
+                <p className="garantia-titulo">{item.titulo}</p>
+                <p className="garantia-texto">{item.texto}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
     </>

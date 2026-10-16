@@ -126,4 +126,38 @@
   font-size: 11px;
   color: var(--cor-texto-secundario);
 }
+/* Secção de garantias */
 
+.home-garantias {
+  padding: 24px 0;
+  background-color: #080b12;
+}
+
+.garantias-grelha {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.garantia {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--cor-texto-secundario);
+}
+
+/* Linha vertical entre as garantias (todas menos a primeira) */
+.garantia + .garantia {
+  padding-left: 24px;
+  border-left: 1px solid var(--cor-borda);
+}
+
+.garantia-titulo {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--cor-texto);
+}
+
+.garantia-texto {
+  font-size: 11px;
+}
