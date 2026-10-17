@@ -1,0 +1,81 @@
+.catalogo {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 48px 24px 64px;
+}
+
+.catalogo-etiqueta {
+  margin: 0 0 4px;
+  font-family: monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--cor-secundaria);
+}
+
+.catalogo-titulo {
+  margin: 0 0 24px;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+/* Filtros por categoria*/
+
+.catalogo-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+.filtro {
+  padding: 6px 14px;
+  font-family: var(--fonte);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--cor-texto-secundario);
+  background-color: var(--cor-cartao);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  cursor: pointer;
+}
+
+.filtro:hover {
+  color: var(--cor-texto);
+}
+
+/* O filtro escolhido fica com contorno azul */
+.filtro-ativo {
+  color: var(--cor-texto);
+  border-color: var(--cor-secundaria);
+}
+
+/* Grelha de produtos */
+
+.catalogo-grelha {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.catalogo-grelha .cartao-produto {
+  max-width: none;
+}
+
+.catalogo-vazio {
+  color: var(--cor-texto-secundario);
+}
+
+/* Telemovel */
+
+@media (max-width: 900px) {
+  .catalogo-grelha {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 500px) {
+  .catalogo-grelha {
+    grid-template-columns: 1fr;
+  }
+}

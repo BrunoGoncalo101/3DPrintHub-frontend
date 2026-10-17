@@ -1,4 +1,4 @@
-/* ---------- Geral ---------- */
+/* Geral */
 
 /* Limita a largura do conteúdo e centra-o */
 .home-conteudo {
@@ -19,7 +19,7 @@
   margin: 0;
 }
 
-/* ---------- 1. Topo ---------- */
+/*1. Topo */
 
 .home-topo {
   padding: 56px 0 80px;
@@ -239,7 +239,7 @@
   line-height: 1.6;
   color: var(--cor-texto-secundario);
 }
-/* ---------- Telemóvel e ecrãs pequenos ---------- */
+/* Telemóvel  */
 
 @media (max-width: 900px) {
   .topo-titulo {
