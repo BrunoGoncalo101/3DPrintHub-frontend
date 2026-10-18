@@ -21,3 +21,19 @@ const dadosIniciais = {
   nif: "PT 509 123 456",
   novaPassword: "",
 };
+function PainelPage() {
+  const [dados, setDados] = useState(dadosIniciais);
+
+  // Atualiza o campo que o utilizador está a mexer
+  function handleChange(e) {
+    setDados({ ...dados, [e.target.name]: e.target.value });
+  }
+
+  function guardar() {
+    console.log("Guardar:", dados); // depois liga-se ao backend
+    alert("Alterações guardadas!");
+  }
+
+  function descartar() {
+    setDados(dadosIniciais);
+  }
