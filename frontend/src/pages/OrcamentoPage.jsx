@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import "./OrcamentoPage.css";
+import "../styles/OrcamentoPage.css";
 
 const processos = [
   { id: "FDM", nome: "Extrusão Filamento", desc: "Peças funcionais e prototipagem rápida.", camada: "0.12 - 0.28mm", nivel: "Económico" },
