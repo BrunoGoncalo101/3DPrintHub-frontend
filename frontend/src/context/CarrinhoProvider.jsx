@@ -25,6 +25,10 @@ export default function CarrinhoProvider({ children }) {
     setItens((atual) => atual.filter((i) => i.id !== id));
   }
 
+  function limpar() {
+    setItens([]);
+  }
+
   function mudarQuantidade(id, quantidade) {
     setItens((atual) =>
       atual.map((i) =>
@@ -43,6 +47,7 @@ export default function CarrinhoProvider({ children }) {
     adicionar,
     remover,
     mudarQuantidade,
+    limpar,
   };
 
   return (
