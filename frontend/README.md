@@ -1,16 +1,52 @@
-# React + Vite
+# 3D PrintHub — Front-end
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Loja online de impressão 3D, feita para a unidade curricular Laboratório de Projeto (CTeSP DWDM, ESTG/P.Porto).
+O front-end usa React + Vite, com JavaScript (sem TypeScript).
 
-Currently, two official plugins are available:
+## Como correr
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Dentro da pasta `frontend`:
 
-## React Compiler
+```bash
+npm install
+npm run dev
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Scripts
 
-## Expanding the ESLint configuration
+| Comando          | O que faz                                          |
+| ---------------- | -------------------------------------------------- |
+| `npm run dev`    | Abre o site em modo de desenvolvimento             |
+| `npm run build`  | Gera a versão final na pasta `dist`                |
+| `npm run lint`   | Procura erros no código com o ESLint               |
+| `npm run format` | Formata o código da pasta `src` com o Prettier     |
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Estrutura de pastas (`src/`)
+
+| Pasta         | Para que serve                                              |
+| ------------- | ----------------------------------------------------------- |
+| `components/` | Componentes reutilizáveis (Button, Header, Footer, ...)     |
+| `pages/`      | Uma página por ficheiro (HomePage, CartPage, ...)           |
+| `layouts/`    | Estruturas comuns a várias páginas                          |
+| `services/`   | Chamadas à API do back-end                                  |
+| `context/`    | Estado partilhado por todo o site (ex.: carrinho)           |
+| `utils/`      | Funções auxiliares (preços, validações)                     |
+| `mocks/`      | Dados falsos, só até o back-end estar ligado                |
+| `styles/`     | CSS global e variáveis (cores, fontes)                      |
+| `assets/`     | Imagens e outros ficheiros estáticos                        |
+
+## Convenções
+
+- Componentes e páginas em **PascalCase**, **um por ficheiro** (`ProductCard.jsx`).
+- O CSS de um componente fica ao lado dele, com o mesmo nome (`ProductCard.css`).
+- Nomes de variáveis e comentários em português.
+- Usar as cores e tamanhos de `styles/variaveis.css`, sem escrever valores à mão.
+- Estilo de código (definido no Prettier): aspas duplas e ponto e vírgula.
+
+## Git
+
+- Uma branch por tarefa ou página, com o nome `feature/<descricao>` (ex.: `feature/carrinho`).
+- Commits no presente, com um prefixo: `feat:`, `fix:`, `docs:`, `chore:` ou `refactor:`.
+- Adicionar os ficheiros pelo nome (`git add src/pages/CartPage.jsx`), nunca `git add .`.
+- Antes de abrir o pull request, correr `npm run lint` e confirmar que não há erros.
+- Cada pull request é revisto por um colega antes do merge.
