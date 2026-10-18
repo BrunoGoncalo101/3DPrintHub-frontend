@@ -8,3 +8,18 @@ const materiais = [
   { nome: "Resina 8K Bio-Med", cor: "roxo" },
   { nome: "Nylon PA12 ESD", cor: "laranja" },
 ];
+function RegistoPage() {
+  const [form, setForm] = useState({
+    nome: "",
+    email: "",
+    password: "",
+    confirmar: "",
+    termos: false,
+    novidades: false,
+  });
+
+  // Atualiza o campo que o utilizador está a escrever
+  function handleChange(e) {
+    const { name, value, type, checked } = e.target;
+    setForm({ ...form, [name]: type === "checkbox" ? checked : value });
+  }
