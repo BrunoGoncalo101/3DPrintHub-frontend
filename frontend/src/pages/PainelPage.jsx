@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import "./PainelPage.css";
+import "../styles/PainelPage.css";
 
 const encomendas = [
   { ref: "#ORD-8491", peca: "Engrenagem Biónica PA12", detalhe: "SLS Laser · Nylon Preto", qtd: 2, estado: "Concluído", cor: "verde", total: "48,20 €", acao: "Ver Detalhes", link: true },
