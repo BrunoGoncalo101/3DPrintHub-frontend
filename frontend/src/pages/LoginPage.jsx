@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./LoginPage.css";
+import "../styles/LoginPage.css";
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ function LoginPage() {
       setErro(true);
     }
   }
-  
+
 return (
     <main className="login-page">
       <section className="login-card">
