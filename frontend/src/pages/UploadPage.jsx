@@ -13,3 +13,20 @@ const vantagens = [
   { titulo: "Proteção de Propriedade Intelectual", texto: "Ficheiros armazenados temporariamente em clusters europeus em conformidade com o RGPD e eliminados após produção." },
   { titulo: "Orçamentação em Menos de 5 Segundos", texto: "Cálculo de volume, tempo de máquina e peso em gramas do polímero selecionado com atualização de preço ao vivo." },
 ];
+function UploadPage() {
+  const [lista, setLista] = useState(ficheirosIniciais);
+  const [nomeFicheiro, setNomeFicheiro] = useState("braco_robotico_v4_joint.step (42.8 MB)");
+
+  // Mostra o nome do ficheiro escolhido
+  function escolherFicheiro(e) {
+    const f = e.target.files[0];
+    if (f) {
+      const mb = (f.size / 1024 / 1024).toFixed(1);
+      setNomeFicheiro(`${f.name} (${mb} MB)`);
+    }
+  }
+
+  // Remove um ficheiro da lista
+  function apagar(id) {
+    setLista(lista.filter((f) => f.id !== id));
+  }
