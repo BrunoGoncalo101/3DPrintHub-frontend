@@ -1,0 +1,242 @@
+.produto {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.produto-caminho {
+  margin-bottom: 24px;
+  font-size: 14px;
+  color: var(--cor-texto-secundario);
+}
+
+.produto-caminho a:hover {
+  color: var(--cor-secundaria);
+}
+
+.produto-topo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.produto-imagem {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--cor-fundo);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-cartao);
+}
+
+.produto-imagem img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--raio-cartao);
+}
+
+.produto-sem-imagem {
+  font-size: 48px;
+  color: var(--cor-texto-secundario);
+}
+
+.produto-etiqueta {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 2px 8px;
+  font-family: monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--cor-texto-secundario);
+  border: 1px solid var(--cor-borda);
+  border-radius: 4px;
+}
+
+.produto-miniaturas {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.produto-miniatura {
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cor-texto-secundario);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+}
+
+.produto-categoria {
+  margin: 0 0 8px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--cor-secundaria);
+}
+
+.produto-info h1 {
+  margin: 0 0 8px;
+}
+
+.produto-avaliacao {
+  margin: 0 0 16px;
+  font-weight: 600;
+}
+
+.produto-avaliacao span {
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--cor-texto-secundario);
+}
+
+.produto-preco {
+  margin: 0 0 12px;
+  font-size: 32px;
+  font-weight: 800;
+}
+
+.produto-preco span {
+  margin-left: 8px;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--cor-texto-secundario);
+}
+
+.produto-descricao {
+  margin: 0 0 24px;
+  color: var(--cor-texto-secundario);
+}
+
+.produto-titulo-opcao {
+  margin: 0 0 8px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--cor-texto-secundario);
+}
+
+.produto-opcoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.opcao {
+  padding: 10px 16px;
+  background-color: var(--cor-cartao);
+  color: var(--cor-texto);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  font-family: var(--fonte);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.opcao:hover {
+  border-color: var(--cor-secundaria);
+}
+
+.opcao-ativa {
+  border-color: var(--cor-principal);
+  background-color: var(--cor-fundo);
+}
+
+.produto-aviso {
+  margin: 0 0 20px;
+  font-size: 14px;
+  color: var(--cor-texto-secundario);
+}
+
+.produto-compra {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.produto-quantidade {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+}
+
+.produto-quantidade button {
+  width: 40px;
+  height: 100%;
+  background: none;
+  color: var(--cor-texto);
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.produto-quantidade input {
+  width: 48px;
+  text-align: center;
+  background: none;
+  color: var(--cor-texto);
+  border: none;
+  font-family: var(--fonte);
+  font-size: var(--tamanho-texto);
+}
+
+.produto-relacionados {
+  margin-top: 64px;
+}
+
+.produto-relacionados p {
+  margin: 0 0 24px;
+  color: var(--cor-texto-secundario);
+}
+
+.produto-relacionados-grelha {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 24px;
+}
+
+.produto-vazio {
+  padding: 32px;
+  text-align: center;
+  color: var(--cor-texto-secundario);
+}
+
+@media (max-width: 700px) {
+  .produto {
+    padding: 16px;
+  }
+
+  .produto-topo {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .produto-info h1 {
+    font-size: 28px;
+  }
+
+  .produto-compra {
+    flex-direction: column;
+  }
+
+  .produto-compra .botao {
+    width: 100%;
+  }
+
+  .produto-quantidade {
+    justify-content: center;
+  }
+
+  .produto-relacionados {
+    margin-top: 40px;
+  }
+}
