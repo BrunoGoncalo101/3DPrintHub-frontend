@@ -2,17 +2,12 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/Button.jsx";
 import { useCarrinho } from "../context/useCarrinho.js";
+import {
+  LIMITE_PORTES_GRATIS,
+  calcularTotais,
+  formatarPreco,
+} from "../utils/precos.js";
 import "./CartPage.css";
-
-// Valores de teste: o cálculo real de portes está fora do âmbito do projeto
-const LIMITE_PORTES_GRATIS = 30;
-const PORTES_FIXOS = 4.99;
-const TAXA_IVA = 0.23;
-
-// Formata um número como preço em euros (ex.: 19.9 -> "19,90 €")
-function formatarPreco(valor) {
-  return valor.toLocaleString("pt-PT", { style: "currency", currency: "EUR" });
-}
 
 export default function CartPage() {
   const { itens, subtotal, totalItens, remover, mudarQuantidade } =
@@ -21,11 +16,10 @@ export default function CartPage() {
   const [cupao, setCupao] = useState("");
   const [avisoCupao, setAvisoCupao] = useState("");
 
-  const portesGratis = subtotal >= LIMITE_PORTES_GRATIS;
-  const portes = portesGratis || itens.length === 0 ? 0 : PORTES_FIXOS;
-  const total = subtotal + portes;
-  // Os preços já incluem IVA, por isso extrai-se do total
-  const iva = (total / (1 + TAXA_IVA)) * TAXA_IVA;
+  const { portesGratis, portes, total, iva } = calcularTotais(
+    subtotal,
+    itens.length > 0,
+  );
 
   function aplicarCupao() {
     // Por enquanto sem ação real: os cupões ainda não existem no back-end
