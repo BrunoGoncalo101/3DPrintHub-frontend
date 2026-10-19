@@ -9,7 +9,7 @@ import {
   validarNif,
   validarTelemovel,
 } from "../utils/validacoes.js";
-import "./CheckoutPage.css";
+import "../styles/CheckoutPage.css";
 
 const METODOS = [
   { id: "mbway", nome: "MB WAY", descricao: "Push app" },

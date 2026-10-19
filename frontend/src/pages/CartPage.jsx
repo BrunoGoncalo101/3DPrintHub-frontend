@@ -7,7 +7,7 @@ import {
   calcularTotais,
   formatarPreco,
 } from "../utils/precos.js";
-import "./CartPage.css";
+import "../styles/CartPage.css";
 
 export default function CartPage() {
   const { itens, subtotal, totalItens, remover, mudarQuantidade } =

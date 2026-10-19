@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ProductCard from "../components/ProductCard.jsx";
 import produtos from "../mocks/produtos.js";
-import "./CatalogoPage.css";
+import "../styles/CatalogoPage.css";
 
 const categorias = [
   "Todos os Artigos",

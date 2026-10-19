@@ -4,7 +4,7 @@ import Button from "../components/Button.jsx";
 import ProductCard from "../components/ProductCard.jsx";
 import produtos from "../mocks/produtos.js";
 import materiais from "../mocks/materiais.js";
-import "./ProductPage.css";
+import "../styles/ProductPage.css";
 
 // Formata um número como preço em euros (ex.: 19.9 -> "19,90 €")
 function formatarPreco(valor) {
