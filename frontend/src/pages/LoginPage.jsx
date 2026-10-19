@@ -49,7 +49,7 @@ return (
             </label>
             <input
               type="email"
-              placeholder="artur.eng@fabrico3d.pt"
+              placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -64,6 +64,7 @@ return (
             <div className="login-pass">
               <input
                 type={mostrarPassword ? "text" : "password"}
+                Placeholder="Palavra-passe"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 minLength={8}
@@ -107,9 +108,6 @@ return (
         </p>
       </section>
 
-      <p className="login-rodape">
-        NÓ ATIVO: PT-LIS-01 • LATÊNCIA: 12ms • SISTEMA ADITIVO ONLINE
-      </p>
     </main>
   );
 }

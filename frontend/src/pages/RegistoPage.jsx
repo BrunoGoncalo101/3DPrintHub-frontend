@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../styles/RegistoPage.css";
 
 const materiais = [
@@ -9,6 +9,7 @@ const materiais = [
   { nome: "Nylon PA12 ESD", cor: "laranja" },
 ];
 function RegistoPage() {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     nome: "",
     email: "",
@@ -40,6 +41,7 @@ function RegistoPage() {
       return;
     }
     console.log("Registo:", form); // depois liga-se ao backend
+    navigate("/login");
   }
   return (
     <main className="rg-page">
@@ -108,7 +110,7 @@ function RegistoPage() {
             <input
               type="text"
               name="nome"
-              placeholder="ex: Duarte Silva"
+              placeholder="Nome completo"
               value={form.nome}
               onChange={handleChange}
               required
@@ -118,14 +120,11 @@ function RegistoPage() {
           <div className="rg-campo">
             <label>
               <span>E-mail corporativo / pessoal</span>
-              {form.email.includes("@") && (
-                <span className="rg-verde">✓ Domínio verificado</span>
-              )}
             </label>
             <input
               type="email"
               name="email"
-              placeholder="duarte.silva@eng-porto.pt"
+              placeholder="Email"
               value={form.email}
               onChange={handleChange}
               required
@@ -141,6 +140,7 @@ function RegistoPage() {
               <input
                 type="password"
                 name="password"
+                placeholder="Palavra-passe"
                 value={form.password}
                 onChange={handleChange}
                 required
@@ -165,6 +165,7 @@ function RegistoPage() {
               <input
                 type="password"
                 name="confirmar"
+                placeholder="Confirmar palavra-passe"
                 value={form.confirmar}
                 onChange={handleChange}
                 required

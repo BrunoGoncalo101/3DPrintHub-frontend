@@ -17,6 +17,10 @@ export default function Header() {
         <Link to="/carrinho" className="botao-carrinho">
           Carrinho <span className="carrinho-contador">0</span>
         </Link>
+        <div className="auth-botoes">
+          <Link to="/login" className="auth-botao auth-botao-contorno">Entrar</Link>
+          <Link to="/registo" className="auth-botao auth-botao-gradiente">Registo</Link>
+        </div>
       </div>
 
       <nav className="cabecalho-menu">
