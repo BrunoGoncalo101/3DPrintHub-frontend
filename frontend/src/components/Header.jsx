@@ -1,8 +1,12 @@
 import { Link, NavLink } from "react-router-dom";
 import logo from "../assets/logo.png";
+import { useCarrinho } from "../context/useCarrinho.js";
 import "./Header.css";
 
 export default function Header() {
+  // Número de artigos no carrinho (muda sempre que se adiciona ou remove)
+  const { totalItens } = useCarrinho();
+
   return (
     <header className="cabecalho">
       <div className="cabecalho-topo">
@@ -15,7 +19,7 @@ export default function Header() {
         </Link>
 
         <Link to="/carrinho" className="botao-carrinho">
-          Carrinho <span className="carrinho-contador">0</span>
+          Carrinho <span className="carrinho-contador">{totalItens}</span>
         </Link>
         <div className="auth-botoes">
           <Link to="/login" className="auth-botao auth-botao-contorno">Entrar</Link>
