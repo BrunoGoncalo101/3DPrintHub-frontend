@@ -19,6 +19,37 @@
   font-weight: 700;
 }
 
+/* NOVO (tarefa 59): pesquisa e filtros de material e preço */
+
+.catalogo-barra {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.catalogo-pesquisa,
+.catalogo-select {
+  padding: 10px 14px;
+  font-family: var(--fonte);
+  font-size: 14px;
+  color: var(--cor-texto);
+  background-color: var(--cor-cartao);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+}
+
+.catalogo-pesquisa {
+  flex: 1;
+  min-width: 220px;
+}
+
+.catalogo-pesquisa:focus,
+.catalogo-select:focus {
+  outline: none;
+  border-color: var(--cor-secundaria);
+}
+
 /* Filtros por categoria*/
 
 .catalogo-filtros {
@@ -64,6 +95,11 @@
 
 .catalogo-vazio {
   color: var(--cor-texto-secundario);
+}
+
+/* NOVO (tarefa 59): espaço entre a mensagem e o botão */
+.catalogo-vazio p {
+  margin: 0 0 12px;
 }
 
 /* Telemovel */
