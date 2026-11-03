@@ -4,6 +4,8 @@ import Button from "../components/Button.jsx";
 import ProductCard from "../components/ProductCard.jsx";
 import produtos from "../mocks/produtos.js";
 import materiais from "../mocks/materiais.js";
+import { useCarrinho } from "../context/useCarrinho.js";
+import { QUANTIDADE_MAXIMA } from "../context/CarrinhoContext.js";
 import "../styles/ProductPage.css";
 
 // Formata um número como preço em euros (ex.: 19.9 -> "19,90 €")
@@ -15,10 +17,14 @@ function DetalheProduto({ produto }) {
   const [materialId, setMaterialId] = useState(null);
   const [corId, setCorId] = useState(null);
   const [quantidade, setQuantidade] = useState(1);
+  const { adicionar } = useCarrinho();
+  const [adicionado, setAdicionado] = useState(false);
 
   // O material escolhido decide quais cores aparecem
   const material = materiais.find((m) => m.id === materialId);
   const faltaEscolher = !materialId || !corId;
+
+const cor= material?.cores.find((c) => c.id === materialId);
 
   // Outros produtos da mesma categoria (no máximo 4)
   const relacionados = produtos
@@ -27,14 +33,43 @@ function DetalheProduto({ produto }) {
 
   function escolherMaterial(id) {
     setMaterialId(id);
-    setCorId(null); // ao mudar de material, a cor volta ao início
+    setCorId(null); //ao mudar de material a cor volta ao inicio
+    setAdicionado(false); 
+  }
+
+  function escolherCor(id) {
+    setCorId(id);
+    setAdicionado(false); 
   }
 
   function mudarQuantidade(valor) {
-    setQuantidade(Math.max(1, valor)); // nunca abaixo de 1
+    setQuantidade(Math.min(QUANTIDADE_MAXIMA, Math.max(1, valor))); 
+    setAdicionado(false);
   }
 
-  return (
+function adicionarAoCarrinho() {
+    if (faltaEscolher) return; // segurança extra: o botão já está desativado
+
+    adicionar({
+      // o id junta produto, material e cor: a mesma combinação soma quantidade
+      id: `${produto.id}-${material.id}-${cor.id}`,
+      tipo: "catalogo",
+      origem: "Catálogo oficial",
+      sku: null,
+      nome: produto.nome,
+      etiqueta: material.nome,
+      precoUnitario: produto.precoBase,
+      quantidade,
+      detalhes: [
+        { rotulo: "Material", valor: material.nome },
+        { rotulo: "Cor", valor: cor.nome },
+        { rotulo: "Camada", valor: `${produto.alturaCamada}mm` },
+      ],
+    });
+    setAdicionado(true);
+  }
+
+   return (
     <section className="produto">
       <nav className="produto-caminho">
         <Link to="/">Início</Link> / <span>{produto.categoria}</span> /{" "}
@@ -97,7 +132,7 @@ function DetalheProduto({ produto }) {
                   key={c.id}
                   type="button"
                   className={c.id === corId ? "opcao opcao-ativa" : "opcao"}
-                  onClick={() => setCorId(c.id)}
+                  onClick={() => escolherCor(c.id)}
                 >
                   {c.nome}
                 </button>
@@ -119,6 +154,7 @@ function DetalheProduto({ produto }) {
               <input
                 type="number"
                 min="1"
+                max={QUANTIDADE_MAXIMA} 
                 value={quantidade}
                 onChange={(e) => mudarQuantidade(Number(e.target.value) || 1)}
               />
@@ -126,17 +162,29 @@ function DetalheProduto({ produto }) {
                 type="button"
                 aria-label="Aumentar quantidade"
                 onClick={() => mudarQuantidade(quantidade + 1)}
+                disabled={quantidade >= QUANTIDADE_MAXIMA} 
               >
                 +
               </button>
             </div>
 
-            {/* Por enquanto sem ação real, como pede a tarefa */}
-            <Button desativado={faltaEscolher}>Adicionar ao carrinho</Button>
+            <Button desativado={faltaEscolher} onClick={adicionarAoCarrinho}>
+              Adicionar ao carrinho
+            </Button>
             <Button variante="secundario" desativado={faltaEscolher}>
               Comprar já
             </Button>
           </div>
+
+          {adicionado && (
+            <p className="produto-adicionado" role="status">
+              ✓ Adicionado ao carrinho. <Link to="/carrinho">Ver carrinho</Link>
+            </p>
+          )}
+        
+          <p className="produto-limite">
+            Máximo de {QUANTIDADE_MAXIMA} unidades por artigo.
+          </p>
         </div>
       </div>
 

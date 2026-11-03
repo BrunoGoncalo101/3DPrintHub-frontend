@@ -1,6 +1,11 @@
 import { useState } from "react";
 import carrinhoInicial from "../mocks/carrinho.js";
-import { CarrinhoContext } from "./CarrinhoContext.js";
+import { CarrinhoContext, QUANTIDADE_MAXIMA } from "./CarrinhoContext.js";
+
+// Mantém a quantidade entre 1 e o máximo (10)
+function limitarQuantidade(quantidade) {
+  return Math.min(QUANTIDADE_MAXIMA, Math.max(1, quantidade));
+}
 
 export default function CarrinhoProvider({ children }) {
   // Por enquanto o carrinho começa com itens falsos (mocks)
@@ -10,14 +15,20 @@ export default function CarrinhoProvider({ children }) {
     setItens((atual) => {
       const existente = atual.find((i) => i.id === item.id);
       if (existente) {
-        // se o item já existe, só soma a quantidade
+        // se o item já existe, só soma a quantidade e a soma nunca passa do maximo
         return atual.map((i) =>
           i.id === item.id
-            ? { ...i, quantidade: i.quantidade + item.quantidade }
+            ? { 
+                ...i, 
+                quantidade: limitarQuantidade(i.quantidade + item.quantidade), 
+              }
             : i,
         );
       }
-      return [...atual, item];
+      return [
+        ...atual, 
+        { ...item, quantidade: limitarQuantidade(item.quantidade)},
+      ];
     });
   }
 
@@ -32,7 +43,7 @@ export default function CarrinhoProvider({ children }) {
   function mudarQuantidade(id, quantidade) {
     setItens((atual) =>
       atual.map((i) =>
-        i.id === id ? { ...i, quantidade: Math.max(1, quantidade) } : i,
+        i.id === id ? { ...i, quantidade: limitarQuantidade(quantidade) } : i,
       ),
     );
   }
