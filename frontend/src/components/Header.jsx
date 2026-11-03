@@ -28,7 +28,7 @@ export default function Header() {
       </div>
 
       <nav className="cabecalho-menu">
-        <NavLink to="/" end>Catálogo Geral</NavLink>
+        <NavLink to="/catalogo">Catálogo Geral</NavLink>
         <NavLink to="/impressao">Impressão Sob Medida (STL)</NavLink>
         <NavLink to="/materiais">Materiais &amp; Fichas Técnicas</NavLink>
       </nav>

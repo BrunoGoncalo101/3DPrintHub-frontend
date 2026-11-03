@@ -31,7 +31,7 @@ export default function Footer() {
         <div>
           <h4 className="rodape-titulo">Navegação</h4>
           <ul className="rodape-lista">
-            <li><Link to="/">Catálogo Geral</Link></li>
+            <li><Link to="/catalogo">Catálogo Geral</Link></li>
             <li><Link to="/impressao">Impressão Sob Medida</Link></li>
             <li><Link to="/materiais">Materiais</Link></li>
           </ul>
