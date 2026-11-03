@@ -189,6 +189,31 @@
   font-size: var(--tamanho-texto);
 }
 
+/* NOVO (tarefa 60): o botão "+" fica apagado quando chega a 10 */
+.produto-quantidade button:disabled {
+  color: var(--cor-texto-secundario);
+  cursor: not-allowed;
+}
+
+/* NOVO (tarefa 60): mensagem de sucesso depois de adicionar */
+.produto-adicionado {
+  margin: 16px 0 0;
+  font-size: 14px;
+  color: var(--cor-sucesso);
+}
+
+.produto-adicionado a {
+  color: var(--cor-secundaria);
+  text-decoration: underline;
+}
+
+/* NOVO (tarefa 60): aviso do limite de quantidade */
+.produto-limite {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: var(--cor-texto-secundario);
+}
+
 .produto-relacionados {
   margin-top: 64px;
 }
