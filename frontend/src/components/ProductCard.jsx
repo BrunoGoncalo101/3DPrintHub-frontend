@@ -1,4 +1,4 @@
-import { useState } from "react"; 
+import { useState, useEffect } from "react"; 
 import { Link } from "react-router-dom";
 import { useCarrinho } from "../context/useCarrinho.js"; 
 import "./ProductCard.css";
@@ -8,12 +8,17 @@ function formatarPreco(valor) {
   return valor.toLocaleString("pt-PT", { style: "currency", currency: "EUR" });
 }
 
-
 export default function ProductCard({ produto }) {
   const { adicionar } = useCarrinho();
   const [adicionado, setAdicionado] = useState(false);
 
-  // Adiciona 1 unidade com o material do produto
+  // O botão verde desaparece ao fim de 0,5 segundos
+  useEffect(() => {
+    if (!adicionado) return;
+    const temporizador = setTimeout(() => setAdicionado(false), 500);
+    return () => clearTimeout(temporizador); // limpa se o cartão sair do ecrã
+  }, [adicionado]);
+
   function adicionarAoCarrinho() {
     adicionar({
       id: `${produto.id}-${produto.material}`,
