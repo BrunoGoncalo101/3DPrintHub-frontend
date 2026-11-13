@@ -8,6 +8,7 @@ import CartPage from "./pages/CartPage.jsx";
 import CheckoutPage from "./pages/CheckoutPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import RegistoPage from "./pages/RegistoPage.jsx";
+import MaterialsPage from "./pages/MaterialsPage.jsx";
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/registo" element={<RegistoPage />} />
+          <Route path="/materiais" element={<MaterialsPage />} />
           <Route path="*" element={<Home />} />
         </Routes>
       </main>

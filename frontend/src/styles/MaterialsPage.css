@@ -1,0 +1,60 @@
+.materiais {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 24px 64px;
+}
+
+.materiais h1 {
+  margin: 0 0 8px;
+  font-size: 30px;
+}
+
+.materiais-intro {
+  margin: 0 0 32px;
+  color: var(--cor-texto-secundario);
+}
+
+/* Se a tabela não couber, desliza só ela (não a página toda) */
+.materiais-tabela-caixa {
+  overflow-x: auto;
+}
+
+.materiais-tabela {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.materiais-tabela th {
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--cor-texto-secundario);
+  border-bottom: 2px solid var(--cor-borda);
+}
+
+.materiais-tabela td {
+  padding: 16px;
+  vertical-align: top;
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+/* Linha fica um pouco mais clara com o rato por cima */
+.materiais-tabela tbody tr:hover {
+  background-color: var(--cor-cartao);
+}
+
+.materiais-tabela strong {
+  display: block;
+  font-size: 16px;
+}
+
+.materiais-descricao {
+  display: block;
+  margin-top: 4px;
+  max-width: 280px;
+  font-size: 13px;
+  color: var(--cor-texto-secundario);
+}
