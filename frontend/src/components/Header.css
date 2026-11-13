@@ -133,7 +133,7 @@
     font-size: 13px;
   }
 }
-/* NOVO (tarefa 91): cabeçalho no telemóvel */
+
 @media (max-width: 600px) {
   .cabecalho-topo {
     gap: 8px;
@@ -169,7 +169,7 @@
   }
 }
  
-/* NOVO (tarefa 91): em ecrãs muito pequenos fica só o logótipo */
+
 @media (max-width: 380px) {
   .marca-nome {
     display: none;

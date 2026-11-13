@@ -19,7 +19,7 @@
   font-weight: 700;
 }
  
-/* NOVO (tarefa 59): pesquisa e filtros de material e preço */
+/* Pesquisa e filtros de material e preço */
  
 .catalogo-barra {
   display: flex;
@@ -97,7 +97,7 @@
   color: var(--cor-texto-secundario);
 }
  
-/* NOVO (tarefa 59): espaço entre a mensagem e o botão */
+/* Espaço entre a mensagem e o botão */
 .catalogo-vazio p {
   margin: 0 0 12px;
 }
@@ -110,7 +110,6 @@
   }
 }
  
-/* ALTERADO (tarefa 91): no telemóvel ficam 2 produtos por linha, como na página inicial */
 @media (max-width: 500px) {
   .catalogo {
     padding: 32px 16px 48px;

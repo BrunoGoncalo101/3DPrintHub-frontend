@@ -262,7 +262,6 @@
     border-left: none;
   }
 }
-/* NOVO (tarefa 91): no telemóvel as garantias ficam uma por linha */
 @media (max-width: 500px) {
   .garantias-grelha {
     grid-template-columns: 1fr;
