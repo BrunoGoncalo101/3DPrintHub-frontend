@@ -133,3 +133,46 @@
     font-size: 13px;
   }
 }
+
+@media (max-width: 600px) {
+  .cabecalho-topo {
+    gap: 8px;
+    padding: 0 12px;
+  }
+ 
+  /* o slogan não cabe: esconde-se */
+  .marca-slogan {
+    display: none;
+  }
+ 
+  .marca-nome {
+    white-space: nowrap;
+  }
+ 
+  .auth-botoes {
+    gap: 6px;
+  }
+ 
+  .auth-botao {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+ 
+  /* o menu fica numa linha e desliza para o lado se não couber */
+  .cabecalho-menu {
+    padding: 0 12px;
+    overflow-x: auto;
+  }
+ 
+  .cabecalho-menu a {
+    white-space: nowrap;
+  }
+}
+ 
+
+@media (max-width: 380px) {
+  .marca-nome {
+    display: none;
+  }
+}
+ 

@@ -3,7 +3,7 @@
   margin: 0 auto;
   padding: 48px 24px 64px;
 }
-
+ 
 .catalogo-etiqueta {
   margin: 0 0 4px;
   font-family: monospace;
@@ -12,22 +12,22 @@
   letter-spacing: 1px;
   color: var(--cor-secundaria);
 }
-
+ 
 .catalogo-titulo {
   margin: 0 0 24px;
   font-size: 30px;
   font-weight: 700;
 }
-
-/* NOVO (tarefa 59): pesquisa e filtros de material e preço */
-
+ 
+/* Pesquisa e filtros de material e preço */
+ 
 .catalogo-barra {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
   margin-bottom: 16px;
 }
-
+ 
 .catalogo-pesquisa,
 .catalogo-select {
   padding: 10px 14px;
@@ -38,27 +38,27 @@
   border: 1px solid var(--cor-borda);
   border-radius: var(--raio);
 }
-
+ 
 .catalogo-pesquisa {
   flex: 1;
   min-width: 220px;
 }
-
+ 
 .catalogo-pesquisa:focus,
 .catalogo-select:focus {
   outline: none;
   border-color: var(--cor-secundaria);
 }
-
+ 
 /* Filtros por categoria*/
-
+ 
 .catalogo-filtros {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   margin-bottom: 32px;
 }
-
+ 
 .filtro {
   padding: 6px 14px;
   font-family: var(--fonte);
@@ -70,48 +70,58 @@
   border-radius: var(--raio);
   cursor: pointer;
 }
-
+ 
 .filtro:hover {
   color: var(--cor-texto);
 }
-
+ 
 /* O filtro escolhido fica com contorno azul */
 .filtro-ativo {
   color: var(--cor-texto);
   border-color: var(--cor-secundaria);
 }
-
+ 
 /* Grelha de produtos */
-
+ 
 .catalogo-grelha {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
 }
-
+ 
 .catalogo-grelha .cartao-produto {
   max-width: none;
 }
-
+ 
 .catalogo-vazio {
   color: var(--cor-texto-secundario);
 }
-
-/* NOVO (tarefa 59): espaço entre a mensagem e o botão */
+ 
+/* Espaço entre a mensagem e o botão */
 .catalogo-vazio p {
   margin: 0 0 12px;
 }
-
+ 
 /* Telemovel */
-
+ 
 @media (max-width: 900px) {
   .catalogo-grelha {
     grid-template-columns: repeat(2, 1fr);
   }
 }
-
+ 
 @media (max-width: 500px) {
+  .catalogo {
+    padding: 32px 16px 48px;
+  }
+ 
   .catalogo-grelha {
-    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+ 
+  /* as caixas de filtro ocupam a largura toda */
+  .catalogo-select {
+    flex: 1 1 100%;
   }
 }
+ 
