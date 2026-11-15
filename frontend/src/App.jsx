@@ -8,6 +8,7 @@ import CartPage from "./pages/CartPage.jsx";
 import CheckoutPage from "./pages/CheckoutPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import RegistoPage from "./pages/RegistoPage.jsx";
+import RotaProtegida from "./components/RotaProtegida.jsx";
 
 export default function App() {
   return (
@@ -20,7 +21,14 @@ export default function App() {
           <Route path="/catalogo" element={<CatalogoPage />} />
           <Route path="/produtos/:id" element={<ProductPage />} />
           <Route path="/carrinho" element={<CartPage />} />
-          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route
+            path="/checkout"
+            element={
+              <RotaProtegida>
+              <CheckoutPage />
+              </RotaProtegida>
+            }
+          />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/registo" element={<RegistoPage />} />
           <Route path="*" element={<Home />} />
