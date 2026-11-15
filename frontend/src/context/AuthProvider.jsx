@@ -1,8 +1,7 @@
-import { createContext, useContext, useState } from "react";
+import { useState } from "react";
+import AuthContext from "./AuthContext.js";
 
-const AuthContext = createContext(null);
-
-export function AuthProvider({ children }) {
+export default function AuthProvider({ children }) {
   const [token, setToken] = useState(() => localStorage.getItem("token"));
 
   function guardarSessao(novoToken) {
@@ -22,8 +21,4 @@ export function AuthProvider({ children }) {
       {children}
     </AuthContext.Provider>
   );
-}
-
-export function useAuth() {
-  return useContext(AuthContext);
 }

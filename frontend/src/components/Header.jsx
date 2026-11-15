@@ -2,7 +2,7 @@ import logo from "../assets/logo.png";
 import { useCarrinho } from "../context/useCarrinho.js";
 import "./Header.css";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext.jsx";
+import { useAuth } from "../context/useAuth.js";
 
 export default function Header() {
   // Número de artigos no carrinho (muda sempre que se adiciona ou remove)

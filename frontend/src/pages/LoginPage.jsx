@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import "../styles/LoginPage.css";
 import { login } from "../services/authService.js";
-import { useAuth } from "../context/AuthContext.jsx";
+import { useAuth } from "../context/useAuth.js";
 
 function LoginPage() {
   const navigate = useNavigate();
