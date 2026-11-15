@@ -23,6 +23,28 @@ const precos = [
 { id: "mais30", nome: "Mais de 30€", min: 30, max: Infinity},
 ];
 
+// Ordenar por:
+const ordenacoes = [
+  { id: "relevancia", nome: "Ordenar por: Relevância" },
+  { id: "preco-asc", nome: "Preço: mais baixo" },
+  { id: "preco-desc", nome: "Preço: mais alto" },
+  { id: "avaliacao", nome: "Melhor avaliação" },
+  { id: "nome", nome: "Nome (A-Z)" },
+];
+
+//Devolve uma cópia da lista ordenada, não alteramos a lista original.
+function ordenar(lista, ordem) {
+  const copia = [...lista];
+
+  if (ordem === "preco-asc") copia.sort((a, b) => a.precoBase - b.precoBase);
+  if (ordem === "preco-desc") copia.sort((a, b) => b.precoBase - a.precoBase);
+  if (ordem === "avaliacao") copia.sort((a, b) => b.avaliacao - a.avaliacao);
+  if (ordem === "nome") copia.sort((a, b) => a.nome.localeCompare(b.nome, "pt"));
+  
+  return copia; 
+}
+
+
 //Normalização, passa tudo para minusculo e sem acentos.
 function normalizar(texto){
   return texto
@@ -37,11 +59,13 @@ export default function CatalogoPage() {
   const [pesquisa, setPesquisa] = useState("");
   const [material, setMaterial] = useState("");
   const [precoId, setPrecoId] = useState("todos");
+  const [ordem, setOrdem] = useState("relevancia");
+
   //Intervalo de preço selecionado, min e max.
   const intervalo = precos.find((p) => p.id === precoId);
 
   // Agora um produto só aparece se passar em todos os filtros.
-  const produtosVisiveis = produtos.filter((produto) => {
+  const produtosFiltrados = produtos.filter((produto) => {
   const nome = normalizar(produto.nome);
   const textoPesquisa = normalizar(pesquisa.trim());
   const todasCategorias = categoriaAtiva === categorias[0];
@@ -55,19 +79,23 @@ export default function CatalogoPage() {
   return true; // passou em todos os filtros
 });
 
+// Depois da filtragem ordenamos os produtos.
+const produtosVisiveis = ordenar(produtosFiltrados, ordem);
+
 //Limpa filtros e volta para o estado inicial pre definido.
 function limparFiltros() {
     setCategoriaAtiva(categorias[0]);
     setPesquisa("");
     setMaterial("");
     setPrecoId("todos");
+    setOrdem("relevancia");
   }
 
  return (
     <section className="catalogo">
       <p className="catalogo-etiqueta">Catálogo Selecionado</p>
       <h1 className="catalogo-titulo">Modelos e Criações Prontas a Imprimir</h1>
-
+ 
       <div className="catalogo-barra">
         <input
           type="search"
@@ -77,7 +105,7 @@ function limparFiltros() {
           value={pesquisa}
           onChange={(e) => setPesquisa(e.target.value)}
         />
-
+ 
         <select
           className="catalogo-select"
           aria-label="Filtrar por material"
@@ -91,7 +119,7 @@ function limparFiltros() {
             </option>
           ))}
         </select>
-
+ 
         <select
           className="catalogo-select"
           aria-label="Filtrar por preço"
@@ -104,8 +132,21 @@ function limparFiltros() {
             </option>
           ))}
         </select>
+ 
+        <select
+          className="catalogo-select"
+          aria-label="Ordenar produtos"
+          value={ordem}
+          onChange={(e) => setOrdem(e.target.value)}
+        >
+          {ordenacoes.map((o) => (
+            <option key={o.id} value={o.id}>
+              {o.nome}
+            </option>
+          ))}
+        </select>
       </div>
-
+ 
       <div className="catalogo-filtros">
         {categorias.map((categoria) => (
           <button
@@ -120,7 +161,7 @@ function limparFiltros() {
           </button>
         ))}
       </div>
-
+ 
       {produtosVisiveis.length === 0 ? (
         <div className="catalogo-vazio">
           <p>Nenhum produto corresponde aos filtros escolhidos.</p>

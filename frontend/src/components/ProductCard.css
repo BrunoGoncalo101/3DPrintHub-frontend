@@ -138,3 +138,9 @@
   text-overflow: ellipsis;
   margin-bottom: 10px;
 }
+/* Botão fica verde depois de adicionar ao carrinho. */
+.cartao-adicionado,
+.cartao-adicionado:hover {
+  border-color: var(--cor-sucesso);
+  color: var(--cor-sucesso);
+}

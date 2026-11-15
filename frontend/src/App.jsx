@@ -31,6 +31,7 @@ export default function App() {
           />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/registo" element={<RegistoPage />} />
+          <Route path="/materiais" element={<MaterialsPage />} />
           <Route path="*" element={<Home />} />
         </Routes>
       </main>
