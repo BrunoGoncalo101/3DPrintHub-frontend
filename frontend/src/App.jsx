@@ -9,6 +9,7 @@ import CheckoutPage from "./pages/CheckoutPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import RegistoPage from "./pages/RegistoPage.jsx";
 import RotaProtegida from "./components/RotaProtegida.jsx";
+import MaterialsPage from "./pages/MaterialsPage.jsx";
 
 export default function App() {
   return (
