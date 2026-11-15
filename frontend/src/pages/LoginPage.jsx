@@ -1,29 +1,38 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import "../styles/LoginPage.css";
+import { login } from "../services/authService.js";
+import { useAuth } from "../context/AuthContext.jsx";
 
 function LoginPage() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { guardarSessao } = useAuth();
+  const destino = location.state?.de || "/"; // volta para onde o utilizador queria ir
 
-  // Guarda o que o utilizador escreve
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [mostrarPassword, setMostrarPassword] = useState(false);
   const [lembrar, setLembrar] = useState(false);
-  const [erro, setErro] = useState(false);
-   function handleSubmit(e) {
-    e.preventDefault(); // não deixa a página recarregar
+  const [erro, setErro] = useState("");
+  const [aSubmeter, setASubmeter] = useState(false);
 
-    // Simulação: ligar isto mais tarde a outra cena
-    if (email === "admin@3dprinthub.pt" && password === "12345678") {
-      setErro(false);
-      navigate("/"); // muda para a rota certa 
-    } else {
-      setErro(true);
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setErro("");
+    setASubmeter(true);
+    try {
+      const token = await login(email, password);
+      guardarSessao(token);
+      navigate(destino, { replace: true });
+    } catch (err) {
+      setErro(err.message);
+    } finally {
+      setASubmeter(false);
     }
   }
 
-return (
+  return (
     <main className="login-page">
       <section className="login-card">
         <h1>Iniciar Sessão</h1>
@@ -35,9 +44,9 @@ return (
           <div className="login-alerta">
             <div>
               <strong>FALHA DE AUTENTICAÇÃO</strong>
-              <p>Credenciais inválidas. Por favor verifica o teu e-mail ou palavra-passe.</p>
+              <p>{erro}</p>
             </div>
-            <button type="button" onClick={() => setErro(false)}>✕</button>
+            <button type="button" onClick={() => setErro("")}>✕</button>
           </div>
         )}
 
@@ -49,7 +58,7 @@ return (
             </label>
             <input
               type="email"
-              placeholder="Email"
+              placeholder="o.teu@email.pt"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -64,7 +73,6 @@ return (
             <div className="login-pass">
               <input
                 type={mostrarPassword ? "text" : "password"}
-                Placeholder="Palavra-passe"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 minLength={8}
@@ -91,8 +99,8 @@ return (
             <a href="#">Esqueci-me da palavra-passe</a>
           </div>
 
-          <button type="submit" className="login-btn">
-            Entrar na Conta →
+          <button type="submit" className="login-btn" disabled={aSubmeter}>
+            {aSubmeter ? "A entrar..." : "Entrar na Conta →"}
           </button>
         </form>
 
@@ -107,7 +115,6 @@ return (
           Ainda não tens conta? <Link to="/registo">Regista-te</Link>
         </p>
       </section>
-
     </main>
   );
 }

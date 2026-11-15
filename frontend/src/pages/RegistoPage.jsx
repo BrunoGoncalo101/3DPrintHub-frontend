@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/RegistoPage.css";
+import { registar } from "../services/authService.js";
 
 const materiais = [
   { nome: "PLA Tough", cor: "verde" },
@@ -10,6 +11,8 @@ const materiais = [
 ];
 function RegistoPage() {
   const navigate = useNavigate();
+  const [erro, setErro] = useState("");
+  const [aSubmeter, setASubmeter] = useState(false);
   const [form, setForm] = useState({
     nome: "",
     email: "",
@@ -34,15 +37,28 @@ function RegistoPage() {
   const forca = cumpridos === 3 ? "Forte" : cumpridos === 2 ? "Média" : "Fraca";
   const coincidem = form.confirmar !== "" && form.password === form.confirmar;
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    if (!coincidem) {
-      alert("As palavras-passe não coincidem");
-      return;
-    }
-    console.log("Registo:", form); // depois liga-se ao backend
-    navigate("/login");
+ async function handleSubmit(e) {
+  e.preventDefault();
+  if (!coincidem) {
+    setErro("As palavras-passe não coincidem");
+    return;
   }
+  setErro("");
+  setASubmeter(true);
+  try {
+    await registar({
+      nome: form.nome,
+      email: form.email,
+      password: form.password,
+      termos: form.termos,
+    });
+    navigate("/login");
+  } catch (err) {
+    setErro(err.message);
+  } finally {
+    setASubmeter(false);
+  }
+}
   return (
     <main className="rg-page">
       {/* Coluna esquerda */}
@@ -203,10 +219,10 @@ function RegistoPage() {
             />
             <span>Receber atualizações de novos materiais técnicos.</span>
           </label>
-
-          <button type="submit" className="rg-btn">
-            🚀 Criar Conta
-          </button>
+{erro && <p className="rg-msg rg-vermelho">{erro}</p>}
+          <button type="submit" className="rg-btn" disabled={aSubmeter}>
+  {aSubmeter ? "A criar conta..." : "🚀 Criar Conta"}
+</button>
 
           <p className="rg-ja-tem">
             Já tens uma conta? <Link to="/login">Iniciar sessão →</Link>
