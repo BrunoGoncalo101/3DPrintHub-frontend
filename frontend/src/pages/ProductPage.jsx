@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react"; 
 import { Link, useParams } from "react-router-dom";
 import Button from "../components/Button.jsx";
 import ProductCard from "../components/ProductCard.jsx";
-import produtos from "../mocks/produtos.js";
-import materiais from "../mocks/materiais.js";
+import { get } from "../services/API.js"; 
+import { juntarExtrasProduto } from "../mocks/produtos.js"; 
+import { juntarExtrasMaterial } from "../mocks/materiais.js"; 
 import { useCarrinho } from "../context/useCarrinho.js";
 import { QUANTIDADE_MAXIMA } from "../context/CarrinhoContext.js";
 import "../styles/ProductPage.css";
@@ -13,7 +14,8 @@ function formatarPreco(valor) {
   return valor.toLocaleString("pt-PT", { style: "currency", currency: "EUR" });
 }
 
-function DetalheProduto({ produto }) {
+
+function DetalheProduto({ produto, materiais, produtos }) {
   const [materialId, setMaterialId] = useState(null);
   const [corId, setCorId] = useState(null);
   const [quantidade, setQuantidade] = useState(1);
@@ -23,23 +25,22 @@ function DetalheProduto({ produto }) {
   // O material escolhido decide quais cores aparecem
   const material = materiais.find((m) => m.id === materialId);
   const faltaEscolher = !materialId || !corId;
+  const cor = material?.cores.find((c) => c.id === corId);
 
-const cor= material?.cores.find((c) => c.id === materialId);
-
-  // Outros produtos da mesma categoria (no máximo 4)
+  // Outros produtos da mesma categoria (no máximo 4), compara pelo ID.
   const relacionados = produtos
-    .filter((p) => p.categoria === produto.categoria && p.id !== produto.id)
+    .filter((p) => p.category?.id === produto.category?.id && p.id !== produto.id)
     .slice(0, 4);
 
   function escolherMaterial(id) {
     setMaterialId(id);
     setCorId(null); //ao mudar de material a cor volta ao inicio
-    setAdicionado(false); 
+    setAdicionado(false);
   }
 
   function escolherCor(id) {
     setCorId(id);
-    setAdicionado(false); 
+    setAdicionado(false);
   }
 
   function mudarQuantidade(valor) {
@@ -56,12 +57,12 @@ function adicionarAoCarrinho() {
       tipo: "catalogo",
       origem: "Catálogo oficial",
       sku: null,
-      nome: produto.nome,
-      etiqueta: material.nome,
-      precoUnitario: produto.precoBase,
+      nome: produto.name, 
+      etiqueta: material.name, 
+      precoUnitario: produto.basePrice, 
       quantidade,
       detalhes: [
-        { rotulo: "Material", valor: material.nome },
+        { rotulo: "Material", valor: material.name }, 
         { rotulo: "Cor", valor: cor.nome },
         { rotulo: "Camada", valor: `${produto.alturaCamada}mm` },
       ],
@@ -71,17 +72,18 @@ function adicionarAoCarrinho() {
 
    return (
     <section className="produto">
+      {/* Campos da API (category.name, name, imageUrl) */}
       <nav className="produto-caminho">
-        <Link to="/">Início</Link> / <span>{produto.categoria}</span> /{" "}
-        <span>{produto.nome}</span>
+        <Link to="/">Início</Link> / <span>{produto.category?.name}</span> /{" "}
+        <span>{produto.name}</span>
       </nav>
 
       <div className="produto-topo">
         <div className="produto-galeria">
           <div className="produto-imagem">
             <span className="produto-etiqueta">{produto.material}</span>
-            {produto.imagemUrl ? (
-              <img src={produto.imagemUrl} alt={produto.nome} />
+            {produto.imageUrl ? (
+              <img src={produto.imageUrl} alt={produto.name} />
             ) : (
               <span className="produto-sem-imagem">⬡</span>
             )}
@@ -97,19 +99,30 @@ function adicionarAoCarrinho() {
         </div>
 
         <div className="produto-info">
-          <p className="produto-categoria">{produto.categoria}</p>
-          <h1>{produto.nome}</h1>
-          <p className="produto-avaliacao">
-            ★ {produto.avaliacao.toFixed(1)}{" "}
-            <span>({produto.numAvaliacoes} avaliações verificadas)</span>
-          </p>
+          {/* ALTERADO (tarefa 92): category.name e name vêm da API */}
+          <p className="produto-categoria">{produto.category?.name}</p>
+          <h1>{produto.name}</h1>
+          {/* ALTERADO (tarefa 92): a avaliação vem dos mocks, só aparece se existir */}
+          {produto.avaliacao && (
+            <p className="produto-avaliacao">
+              ★ {produto.avaliacao.toFixed(1)}{" "}
+              <span>({produto.numAvaliacoes} avaliações verificadas)</span>
+            </p>
+          )}
+          {/* NOVO (tarefa 92): as dimensões vêm da API */}
+          {produto.dimensions && (
+            <p className="produto-avaliacao">
+              Dimensões: <span>{produto.dimensions}</span>
+            </p>
+          )}
 
           <p className="produto-preco">
-            {formatarPreco(produto.precoBase)}
+            {formatarPreco(produto.basePrice)}
             <span>IVA incluído (23%)</span>
           </p>
-          <p className="produto-descricao">{produto.descricao}</p>
+          <p className="produto-descricao">{produto.description}</p>
 
+          {/* ALTERADO (tarefa 92): os materiais vêm da API (m.name) */}
           <p className="produto-titulo-opcao">Material</p>
           <div className="produto-opcoes">
             {materiais.map((m) => (
@@ -119,7 +132,7 @@ function adicionarAoCarrinho() {
                 className={m.id === materialId ? "opcao opcao-ativa" : "opcao"}
                 onClick={() => escolherMaterial(m.id)}
               >
-                {m.nome}
+                {m.name}
               </button>
             ))}
           </div>
@@ -203,14 +216,61 @@ function adicionarAoCarrinho() {
   );
 }
 
+// Pede à API o produto, os materiais e a lista de produtos
+function CarregarProduto({ id }) {
+  const [dados, setDados] = useState(null);
+  const [carregando, setCarregando] = useState(true);
+  const [erro, setErro] = useState("");
+  const [naoEncontrado, setNaoEncontrado] = useState(false);
+
+  useEffect(() => {
+    let ativo = true; // evita atualizar a página se o utilizador já saiu dela
+
+    // Os 3 pedidos vão ao mesmo tempo
+    Promise.all([get(`/produtos/${id}`), get("/materiais"), get("/produtos")])
+      .then(([produto, materiais, produtos]) => {
+        if (!ativo) return;
+        // Junta a cada produto e material os extras dos mocks
+        setDados({
+          produto: juntarExtrasProduto(produto),
+          materiais: materiais.map(juntarExtrasMaterial),
+          produtos: produtos.map(juntarExtrasProduto),
+        });
+      })
+      .catch((e) => {
+        if (!ativo) return;
+        if (e.status === 404) setNaoEncontrado(true); // o back diz que o produto não existe
+        else setErro(e.message);
+      })
+      .finally(() => {
+        if (ativo) setCarregando(false);
+      });
+
+    return () => {
+      ativo = false;
+    };
+  }, [id]);
+
+  if (carregando) return <p className="produto-vazio">A carregar...</p>;
+  if (naoEncontrado) return <p className="produto-vazio">Produto não encontrado.</p>;
+  if (erro) return <p className="produto-vazio">{erro}</p>;
+
+  return (
+    <DetalheProduto
+      produto={dados.produto}
+      materiais={dados.materiais}
+      produtos={dados.produtos}
+    />
+  );
+}
+
 export default function ProductPage() {
   const { id } = useParams();
-  const produto = produtos.find((p) => p.id === Number(id));
 
-  if (!produto) {
+  // O id tem de ser um número, senão nem se faz o pedido
+  if (!/^\d+$/.test(id)) {
     return <p className="produto-vazio">Produto não encontrado.</p>;
   }
 
-  // key={id} faz o formulário recomeçar quando passas para outro produto
-  return <DetalheProduto key={id} produto={produto} />;
+  return <CarregarProduto key={id} id={id} />;
 }
