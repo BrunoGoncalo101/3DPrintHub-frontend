@@ -10,12 +10,12 @@ export default function Header() {
   const { totalItens } = useCarrinho();
   const { autenticado, terminarSessao } = useAuth();
   const { modoAdmin, alterarModoAdmin } = useAdmin();
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
-function sair() {
-  terminarSessao();
-  navigate("/");
-}
+  function sair() {
+    terminarSessao();
+    navigate("/");
+  }
 
   // PROVISÓRIO: liga e desliga o modo admin sem API (ver AdminProvider)
   function alternarAdmin() {
@@ -47,15 +47,23 @@ function sair() {
           Carrinho <span className="carrinho-contador">{totalItens}</span>
         </Link>
         {autenticado ? (
-  <button type="button" className="auth-botao auth-botao-contorno" onClick={sair}>
-    Terminar sessão
-  </button>
-) : (
-  <div className="auth-botoes">
-    <Link to="/login" className="auth-botao auth-botao-contorno">Entrar</Link>
-    <Link to="/registo" className="auth-botao auth-botao-gradiente">Registo</Link>
-  </div>
-)}
+          <button
+            type="button"
+            className="auth-botao auth-botao-contorno"
+            onClick={sair}
+          >
+            Terminar sessão
+          </button>
+        ) : (
+          <div className="auth-botoes">
+            <Link to="/login" className="auth-botao auth-botao-contorno">
+              Entrar
+            </Link>
+            <Link to="/registo" className="auth-botao auth-botao-gradiente">
+              Registo
+            </Link>
+          </div>
+        )}
       </div>
 
       <nav className="cabecalho-menu">

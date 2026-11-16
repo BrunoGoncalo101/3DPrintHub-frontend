@@ -46,7 +46,9 @@ function LoginPage() {
               <strong>FALHA DE AUTENTICAÇÃO</strong>
               <p>{erro}</p>
             </div>
-            <button type="button" onClick={() => setErro("")}>✕</button>
+            <button type="button" onClick={() => setErro("")}>
+              ✕
+            </button>
           </div>
         )}
 

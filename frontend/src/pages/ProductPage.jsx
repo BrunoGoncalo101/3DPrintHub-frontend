@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react"; 
+import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Button from "../components/Button.jsx";
 import ProductCard from "../components/ProductCard.jsx";
-import { get } from "../services/API.js"; 
-import { juntarExtrasProduto } from "../mocks/produtos.js"; 
-import { juntarExtrasMaterial } from "../mocks/materiais.js"; 
+import { get } from "../services/API.js";
+import { juntarExtrasProduto } from "../mocks/produtos.js";
+import { juntarExtrasMaterial } from "../mocks/materiais.js";
 import { useCarrinho } from "../context/useCarrinho.js";
 import { useAuth } from "../context/useAuth.js";
 import { QUANTIDADE_MAXIMA } from "../context/CarrinhoContext.js";
@@ -14,7 +14,6 @@ import "../styles/ProductPage.css";
 function formatarPreco(valor) {
   return valor.toLocaleString("pt-PT", { style: "currency", currency: "EUR" });
 }
-
 
 function DetalheProduto({ produto, materiais, produtos }) {
   const [materialId, setMaterialId] = useState(null);
@@ -33,7 +32,9 @@ function DetalheProduto({ produto, materiais, produtos }) {
 
   // Outros produtos da mesma categoria (no máximo 4), compara pelo ID.
   const relacionados = produtos
-    .filter((p) => p.category?.id === produto.category?.id && p.id !== produto.id)
+    .filter(
+      (p) => p.category?.id === produto.category?.id && p.id !== produto.id,
+    )
     .slice(0, 4);
 
   function escolherMaterial(id) {
@@ -48,7 +49,7 @@ function DetalheProduto({ produto, materiais, produtos }) {
   }
 
   function mudarQuantidade(valor) {
-    setQuantidade(Math.min(QUANTIDADE_MAXIMA, Math.max(1, valor))); 
+    setQuantidade(Math.min(QUANTIDADE_MAXIMA, Math.max(1, valor)));
     setAdicionado(false);
   }
 
@@ -86,7 +87,7 @@ function DetalheProduto({ produto, materiais, produtos }) {
     if (await adicionarAoCarrinho()) navigate("/checkout");
   }
 
-   return (
+  return (
     <section className="produto">
       {/* Campos da API (category.name, name, imageUrl) */}
       <nav className="produto-caminho">
@@ -183,7 +184,7 @@ function DetalheProduto({ produto, materiais, produtos }) {
               <input
                 type="number"
                 min="1"
-                max={QUANTIDADE_MAXIMA} 
+                max={QUANTIDADE_MAXIMA}
                 value={quantidade}
                 onChange={(e) => mudarQuantidade(Number(e.target.value) || 1)}
               />
@@ -191,7 +192,7 @@ function DetalheProduto({ produto, materiais, produtos }) {
                 type="button"
                 aria-label="Aumentar quantidade"
                 onClick={() => mudarQuantidade(quantidade + 1)}
-                disabled={quantidade >= QUANTIDADE_MAXIMA} 
+                disabled={quantidade >= QUANTIDADE_MAXIMA}
               >
                 +
               </button>
@@ -217,11 +218,10 @@ function DetalheProduto({ produto, materiais, produtos }) {
 
           {erroCarrinho && (
             <p className="produto-aviso" role="alert">
-              {erroCarrinho}{" "}
-              {!autenticado && <Link to="/login">Entrar</Link>}
+              {erroCarrinho} {!autenticado && <Link to="/login">Entrar</Link>}
             </p>
           )}
-        
+
           <p className="produto-limite">
             Máximo de {QUANTIDADE_MAXIMA} unidades por artigo.
           </p>
@@ -266,7 +266,8 @@ function CarregarProduto({ id }) {
       })
       .catch((e) => {
         if (!ativo) return;
-        if (e.status === 404) setNaoEncontrado(true); // o back diz que o produto não existe
+        if (e.status === 404)
+          setNaoEncontrado(true); // o back diz que o produto não existe
         else setErro(e.message);
       })
       .finally(() => {
@@ -279,7 +280,8 @@ function CarregarProduto({ id }) {
   }, [id]);
 
   if (carregando) return <p className="produto-vazio">A carregar...</p>;
-  if (naoEncontrado) return <p className="produto-vazio">Produto não encontrado.</p>;
+  if (naoEncontrado)
+    return <p className="produto-vazio">Produto não encontrado.</p>;
   if (erro) return <p className="produto-vazio">{erro}</p>;
 
   return (

@@ -1,6 +1,11 @@
 import "./Button.css";
 
-export default function Button({ children, variante = "principal", desativado = false, onClick }) {
+export default function Button({
+  children,
+  variante = "principal",
+  desativado = false,
+  onClick,
+}) {
   return (
     <button
       type="button"

@@ -6,7 +6,8 @@
 const extras = [
   {
     id: 1, // PLA
-    descricao: "O material mais usado. Fácil de imprimir e bom para peças decorativas.",
+    descricao:
+      "O material mais usado. Fácil de imprimir e bom para peças decorativas.",
     temperatura: "190–220 °C",
     resistencia: "Média",
     indicadoPara: "Decoração e protótipos",
@@ -18,7 +19,8 @@ const extras = [
   },
   {
     id: 2, // PETG
-    descricao: "Mais resistente que o PLA e aguenta água. Bom para vasos e peças de uso diário.",
+    descricao:
+      "Mais resistente que o PLA e aguenta água. Bom para vasos e peças de uso diário.",
     temperatura: "230–250 °C",
     resistencia: "Alta",
     indicadoPara: "Vasos e peças de uso diário",
@@ -29,23 +31,21 @@ const extras = [
   },
   {
     id: 3, // ABS
-    descricao: "Aguenta impacto e calor. Bom para peças que vão ser usadas e manuseadas.",
+    descricao:
+      "Aguenta impacto e calor. Bom para peças que vão ser usadas e manuseadas.",
     temperatura: "230–260 °C",
     resistencia: "Alta",
     indicadoPara: "Peças técnicas e suportes",
-    cores: [
-      { id: 6, nome: "Preto" },
-    ],
+    cores: [{ id: 6, nome: "Preto" }],
   },
   {
     id: 4, // TPU
-    descricao: "Material flexível, parecido com borracha. Não parte quando dobra.",
+    descricao:
+      "Material flexível, parecido com borracha. Não parte quando dobra.",
     temperatura: "210–230 °C",
     resistencia: "Alta (flexível)",
     indicadoPara: "Capas, porta-chaves e peças que dobram",
-    cores: [
-      { id: 7, nome: "Preto" },
-    ],
+    cores: [{ id: 7, nome: "Preto" }],
   },
 ];
 

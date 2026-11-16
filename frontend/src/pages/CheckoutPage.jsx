@@ -149,8 +149,8 @@ export default function CheckoutPage() {
           Número da encomenda: <strong>{confirmacao.numero}</strong>
         </p>
         <p>
-          Total: <strong>{formatarPreco(confirmacao.total)}</strong>. Enviámos
-          a confirmação para {confirmacao.email}.
+          Total: <strong>{formatarPreco(confirmacao.total)}</strong>. Enviámos a
+          confirmação para {confirmacao.email}.
         </p>
         <p className="checkout-nota">
           Pagamento simulado: o back-end ainda não tem pagamentos.
@@ -179,7 +179,9 @@ export default function CheckoutPage() {
 
   return (
     <section className="checkout">
-      <p className="checkout-etiqueta">Checkout seguro · Hub Porto Tecnológico</p>
+      <p className="checkout-etiqueta">
+        Checkout seguro · Hub Porto Tecnológico
+      </p>
 
       <div className="checkout-topo">
         <h1>Finalização de Encomenda</h1>
@@ -299,7 +301,11 @@ export default function CheckoutPage() {
                 valor={dados.nif}
                 aoMudar={mudarCampo}
                 erro={erros.nif}
-                extra={nifValido && <span className="checkout-valido">✓ NIF válido</span>}
+                extra={
+                  nifValido && (
+                    <span className="checkout-valido">✓ NIF válido</span>
+                  )
+                }
               />
               {tipoCliente === "empresa" && (
                 <Campo
@@ -353,8 +359,8 @@ export default function CheckoutPage() {
                 />
                 <p className="checkout-nota">
                   Após clicar no botão abaixo, confirme o pedido de{" "}
-                  {formatarPreco(total)} na aplicação MB WAY do seu telemóvel.
-                  O pedido expira em 5 min.
+                  {formatarPreco(total)} na aplicação MB WAY do seu telemóvel. O
+                  pedido expira em 5 min.
                 </p>
               </div>
             ) : (
@@ -393,7 +399,9 @@ export default function CheckoutPage() {
         <aside className="checkout-resumo">
           <div className="checkout-resumo-topo">
             <h2>Resumo da Encomenda</h2>
-            <span>{itens.length === 1 ? "1 artigo" : `${itens.length} artigos`}</span>
+            <span>
+              {itens.length === 1 ? "1 artigo" : `${itens.length} artigos`}
+            </span>
           </div>
 
           <ul className="checkout-itens">
@@ -406,7 +414,9 @@ export default function CheckoutPage() {
                     {item.etiqueta} · {item.quantidade} un
                   </p>
                 </div>
-                <strong>{formatarPreco(item.precoUnitario * item.quantidade)}</strong>
+                <strong>
+                  {formatarPreco(item.precoUnitario * item.quantidade)}
+                </strong>
               </li>
             ))}
           </ul>

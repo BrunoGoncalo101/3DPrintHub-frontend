@@ -2,7 +2,8 @@ import { post } from "./API.js";
 
 export async function login(email, password) {
   const dados = await post("/auth/login", { email, password });
-  if (!dados?.token) throw new Error("A resposta do servidor não trouxe o token.");
+  if (!dados?.token)
+    throw new Error("A resposta do servidor não trouxe o token.");
   return dados.token; // a API devolve { token, tokenType, expiresIn, user }
 }
 

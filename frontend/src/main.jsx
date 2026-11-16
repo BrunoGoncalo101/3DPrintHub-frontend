@@ -18,5 +18,5 @@ createRoot(document.getElementById("root")).render(
         </CarrinhoProvider>
       </AuthProvider>
     </BrowserRouter>
-  </StrictMode>
+  </StrictMode>,
 );

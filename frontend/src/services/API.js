@@ -26,13 +26,13 @@ async function pedido(caminho, opcoes = {}) {
     }
   }
 
- // O backend devolve os erros como { "error": "mensagem", "code": 400 }
+  // O backend devolve os erros como { "error": "mensagem", "code": 400 }
   if (!resposta.ok) {
     const mensagem =
       (dados && (dados.error || dados.message)) ||
       (typeof dados === "string" && dados) ||
       `Erro ${resposta.status}`;
-    
+
     const erro = new Error(mensagem);
     erro.status = resposta.status;
     throw erro;
