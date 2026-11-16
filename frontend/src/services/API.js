@@ -4,7 +4,10 @@ const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
 async function pedido(caminho, opcoes = {}) {
   // Se houver sessão, envia o token no cabeçalho Authorization
   const token = localStorage.getItem("token");
-  const headers = { "Content-Type": "application/json", ...opcoes.headers };
+  const headers = { ...opcoes.headers };
+if (!(opcoes.body instanceof FormData)) {
+  headers["Content-Type"] = "application/json";
+}
   if (token) headers.Authorization = `Bearer ${token}`;
 
   let resposta;
@@ -49,3 +52,6 @@ export const put = (caminho, corpo) =>
 export const del = (caminho) => pedido(caminho, { method: "DELETE" });
 export const patch = (caminho, corpo) =>
   pedido(caminho, { method: "PATCH", body: JSON.stringify(corpo) });
+
+export const postForm = (caminho, formData) =>
+  pedido(caminho, { method: "POST", body: formData });
