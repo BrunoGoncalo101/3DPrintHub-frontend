@@ -1,0 +1,303 @@
+.encomendas {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.encomendas-etiqueta {
+  margin: 0 0 8px;
+  font-family: monospace;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--cor-secundaria);
+}
+
+.encomendas h1 {
+  margin: 0 0 4px;
+}
+
+.encomendas-subtitulo {
+  margin: 0 0 32px;
+  font-size: 14px;
+  color: var(--cor-texto-secundario);
+}
+
+.encomendas-link {
+  display: inline-block;
+  margin-bottom: 16px;
+  font-size: 14px;
+  color: var(--cor-secundaria);
+}
+
+.encomendas-link:hover {
+  text-decoration: underline;
+}
+
+.encomendas-vazio {
+  padding: 40px 24px;
+  text-align: center;
+  background-color: var(--cor-cartao);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-cartao);
+}
+
+/* Lista de encomendas */
+.encomendas-tabela {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.encomendas-cabecalho,
+.encomendas-linha {
+  display: grid;
+  grid-template-columns: 1.3fr 1.3fr 1fr 1fr 1fr 1fr;
+  gap: 16px;
+  align-items: center;
+  padding: 16px 20px;
+}
+
+.encomendas-cabecalho {
+  padding-top: 0;
+  padding-bottom: 4px;
+  font-family: monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--cor-texto-secundario);
+}
+
+.encomendas-linha {
+  font-size: 14px;
+  background-color: var(--cor-cartao);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-cartao);
+}
+
+.encomendas-linha:hover {
+  border-color: var(--cor-principal-hover);
+}
+
+.encomendas-numero {
+  font-family: monospace;
+  font-weight: 700;
+}
+
+.encomendas-total {
+  font-weight: 700;
+}
+
+.encomendas-detalhes {
+  text-align: right;
+  color: var(--cor-secundaria);
+}
+
+/* Etiqueta do estado */
+.estado {
+  display: inline-block;
+  width: fit-content;
+  padding: 4px 10px;
+  font-family: monospace;
+  font-size: 12px;
+  border-radius: 999px;
+}
+
+.estado-curso {
+  color: var(--cor-secundaria);
+  background-color: rgba(56, 189, 248, 0.12);
+}
+
+.estado-concluida {
+  color: var(--cor-sucesso);
+  background-color: rgba(16, 185, 129, 0.12);
+}
+
+.estado-cancelada {
+  color: var(--cor-erro);
+  background-color: rgba(239, 68, 68, 0.12);
+}
+
+/* Detalhe da encomenda */
+.detalhe-titulo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+
+.detalhe-cartao {
+  margin-bottom: 24px;
+  padding: 24px;
+  background-color: var(--cor-cartao);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-cartao);
+}
+
+.detalhe-cartao h2 {
+  margin: 0 0 16px;
+  font-size: 20px;
+}
+
+.detalhe-cartao-topo {
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.detalhe-grelha {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 24px;
+  align-items: start;
+}
+
+/* As 7 fases */
+.fases {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fase {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-family: monospace;
+  font-size: 12px;
+  text-align: center;
+  color: var(--cor-texto-secundario);
+}
+
+.fase-bolinha {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  font-size: 13px;
+  background-color: var(--cor-fundo);
+  border: 1px solid var(--cor-borda);
+  border-radius: 50%;
+}
+
+.fase-feita {
+  color: var(--cor-sucesso);
+}
+
+.fase-feita .fase-bolinha {
+  color: var(--cor-sucesso);
+  border-color: var(--cor-sucesso);
+}
+
+.fase-atual {
+  color: var(--cor-secundaria);
+}
+
+.fase-atual .fase-bolinha {
+  color: var(--cor-fundo);
+  background-color: var(--cor-secundaria);
+  border-color: var(--cor-secundaria);
+}
+
+/* Artigos e totais */
+.detalhe-itens {
+  margin: 0 0 16px;
+  padding: 0;
+  list-style: none;
+}
+
+.detalhe-itens li {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+.detalhe-item-nome {
+  margin: 0 0 4px;
+  font-weight: 600;
+}
+
+.detalhe-item-info {
+  margin: 0;
+  font-size: 13px;
+  color: var(--cor-texto-secundario);
+}
+
+.detalhe-totais {
+  margin: 0;
+}
+
+.detalhe-totais div {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+  font-size: 14px;
+  color: var(--cor-texto-secundario);
+}
+
+.detalhe-totais dt,
+.detalhe-totais dd {
+  margin: 0;
+}
+
+.detalhe-totais .detalhe-total-final {
+  margin-top: 8px;
+  padding-top: 12px;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--cor-texto);
+  border-top: 1px solid var(--cor-borda);
+}
+
+.detalhe-rotulo {
+  margin: 16px 0 4px;
+  font-family: monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--cor-texto-secundario);
+}
+
+.detalhe-texto {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Telemóvel */
+@media (max-width: 800px) {
+  .encomendas-cabecalho {
+    display: none;
+  }
+
+  .encomendas-linha {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .encomendas-detalhes {
+    text-align: left;
+  }
+
+  .detalhe-grelha {
+    grid-template-columns: 1fr;
+  }
+
+  /* As fases ficam em coluna para caberem no ecrã */
+  .fases {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .fase {
+    flex-direction: row;
+    gap: 12px;
+  }
+}

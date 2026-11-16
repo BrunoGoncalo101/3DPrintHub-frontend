@@ -44,6 +44,7 @@ function sair() {
         <NavLink to="/catalogo">Catálogo Geral</NavLink>
         <NavLink to="/impressao">Impressão Sob Medida (STL)</NavLink>
         <NavLink to="/materiais">Materiais &amp; Fichas Técnicas</NavLink>
+        {autenticado && <NavLink to="/encomendas">As Minhas Encomendas</NavLink>}
       </nav>
     </header>
   );

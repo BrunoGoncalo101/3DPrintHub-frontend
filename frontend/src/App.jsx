@@ -10,6 +10,8 @@ import LoginPage from "./pages/LoginPage.jsx";
 import RegistoPage from "./pages/RegistoPage.jsx";
 import RotaProtegida from "./components/RotaProtegida.jsx";
 import MaterialsPage from "./pages/MaterialsPage.jsx";
+import OrdersPage from "./pages/OrdersPage.jsx";
+import OrderDetailPage from "./pages/OrderDetailPage.jsx";
 
 export default function App() {
   return (
@@ -27,6 +29,22 @@ export default function App() {
             element={
               <RotaProtegida>
               <CheckoutPage />
+              </RotaProtegida>
+            }
+          />
+          <Route
+            path="/encomendas"
+            element={
+              <RotaProtegida>
+                <OrdersPage />
+              </RotaProtegida>
+            }
+          />
+          <Route
+            path="/encomendas/:numero"
+            element={
+              <RotaProtegida>
+                <OrderDetailPage />
               </RotaProtegida>
             }
           />
