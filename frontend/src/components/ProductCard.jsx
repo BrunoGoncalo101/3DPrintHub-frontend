@@ -1,6 +1,4 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { useCarrinho } from "../context/useCarrinho.js";
+import { Link, useNavigate } from "react-router-dom";
 import "./ProductCard.css";
 
 // Formata um número como preço em euros
@@ -10,33 +8,7 @@ function formatarPreco(valor) {
 
 // O produto junta os dados da API (name, description, basePrice, imageUrl, dimensions) com os extras dos mocks (material, avaliacao, alturaCamada, precoAntigo)
 export default function ProductCard({ produto }) {
-  const { adicionar } = useCarrinho();
-  const [adicionado, setAdicionado] = useState(false);
-
-  // O botão verde desaparece ao fim de 0,5 segundos
-  useEffect(() => {
-    if (!adicionado) return;
-    const temporizador = setTimeout(() => setAdicionado(false), 500);
-    return () => clearTimeout(temporizador); // limpa se o cartão sair do ecrã
-  }, [adicionado]);
-
-  function adicionarAoCarrinho() {
-    adicionar({
-      id: `${produto.id}-${produto.material}`,
-      tipo: "catalogo",
-      origem: "Catálogo oficial",
-      sku: null,
-      nome: produto.name, 
-      etiqueta: produto.material,
-      precoUnitario: produto.basePrice, 
-      quantidade: 1,
-      detalhes: [
-        { rotulo: "Material", valor: produto.material },
-        { rotulo: "Camada", valor: `${produto.alturaCamada}mm` },
-      ],
-    });
-    setAdicionado(true);
-  }
+  const navigate = useNavigate();
 
   return (
     <article className="cartao-produto">
@@ -73,14 +45,15 @@ export default function ProductCard({ produto }) {
             )}
           </p>
 
+          {/* O carrinho precisa de material e cor, que se escolhem na página do produto */}
           <button
             type="button"
-            className={adicionado ? "cartao-adicionar cartao-adicionado" : "cartao-adicionar"}
-            aria-label={adicionado ? "Adicionado ao carrinho" : "Adicionar ao carrinho"}
-            title={adicionado ? "Adicionado ao carrinho" : "Adicionar ao carrinho"}
-            onClick={adicionarAoCarrinho}
+            className="cartao-adicionar"
+            aria-label="Escolher material e cor"
+            title="Escolher material e cor"
+            onClick={() => navigate(`/produtos/${produto.id}`)}
           >
-            {adicionado ? "✓" : "+"}
+            +
           </button>
         </div>
       </div>
