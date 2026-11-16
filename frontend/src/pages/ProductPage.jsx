@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"; 
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Button from "../components/Button.jsx";
 import ProductCard from "../components/ProductCard.jsx";
 import { get } from "../services/API.js"; 
@@ -22,6 +22,7 @@ function DetalheProduto({ produto, materiais, produtos }) {
   const [quantidade, setQuantidade] = useState(1);
   const { adicionar } = useCarrinho();
   const { autenticado } = useAuth();
+  const navigate = useNavigate();
   const [adicionado, setAdicionado] = useState(false);
   const [erroCarrinho, setErroCarrinho] = useState("");
 
@@ -51,8 +52,9 @@ function DetalheProduto({ produto, materiais, produtos }) {
     setAdicionado(false);
   }
 
+  // Devolve true se o artigo ficou no carrinho (o "Comprar já" usa isto)
   async function adicionarAoCarrinho() {
-    if (faltaEscolher) return; // segurança extra: o botão já está desativado
+    if (faltaEscolher) return false; // segurança extra: o botão já está desativado
 
     setAdicionado(false);
     setErroCarrinho("");
@@ -60,7 +62,7 @@ function DetalheProduto({ produto, materiais, produtos }) {
     // O carrinho é de cada cliente, por isso é preciso ter sessão
     if (!autenticado) {
       setErroCarrinho("Inicia sessão para adicionar ao carrinho.");
-      return;
+      return false;
     }
 
     // A API soma a quantidade se o produto, o material e a cor já estiverem no carrinho
@@ -71,8 +73,17 @@ function DetalheProduto({ produto, materiais, produtos }) {
       quantidade,
     });
 
-    if (erro) setErroCarrinho(erro);
-    else setAdicionado(true);
+    if (erro) {
+      setErroCarrinho(erro);
+      return false;
+    }
+    setAdicionado(true);
+    return true;
+  }
+
+  // Adiciona ao carrinho e segue logo para o checkout
+  async function comprarJa() {
+    if (await adicionarAoCarrinho()) navigate("/checkout");
   }
 
    return (
@@ -189,7 +200,11 @@ function DetalheProduto({ produto, materiais, produtos }) {
             <Button desativado={faltaEscolher} onClick={adicionarAoCarrinho}>
               Adicionar ao carrinho
             </Button>
-            <Button variante="secundario" desativado={faltaEscolher}>
+            <Button
+              variante="secundario"
+              desativado={faltaEscolher}
+              onClick={comprarJa}
+            >
               Comprar já
             </Button>
           </div>
