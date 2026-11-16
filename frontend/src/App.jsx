@@ -23,7 +23,14 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/catalogo" element={<CatalogoPage />} />
           <Route path="/produtos/:id" element={<ProductPage />} />
-          <Route path="/carrinho" element={<CartPage />} />
+          <Route
+            path="/carrinho"
+            element={
+              <RotaProtegida>
+                <CartPage />
+              </RotaProtegida>
+            }
+          />
           <Route
             path="/checkout"
             element={
