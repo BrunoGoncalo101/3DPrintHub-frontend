@@ -1,7 +1,9 @@
+import { useState, useEffect } from "react"; 
 import { Link } from "react-router-dom";
 import "../styles/HomePage.css";
 import ProductCard from "../components/ProductCard.jsx";
-import produtos from "../mocks/produtos.js";
+import { get } from "../services/API.js"; 
+import { juntarExtrasProduto } from "../mocks/produtos.js"; 
 
 // Os 3 números da secção de topo
 const numeros = [
@@ -36,7 +38,32 @@ const passos = [
 ];
 
 export default function Home() {
-    const destaques = produtos.slice(0, 4);
+  // Estados do pedido à API
+  const [produtos, setProdutos] = useState([]);
+  const [carregando, setCarregando] = useState(true);
+  const [erro, setErro] = useState("");
+
+  // Pede os produtos ao back quando a página abre
+  useEffect(() => {
+    let ativo = true; 
+
+    get("/produtos")
+      .then((dados) => {
+        if (ativo) setProdutos(dados.map(juntarExtrasProduto)); 
+      })
+      .catch((e) => {
+        if (ativo) setErro(e.message);
+      })
+      .finally(() => {
+        if (ativo) setCarregando(false);
+      });
+
+    return () => {
+      ativo = false;
+    };
+  }, []);
+
+  const destaques = produtos.slice(0, 4);
   return (
     <>
       {/* 1. Topo */}
@@ -95,11 +122,15 @@ export default function Home() {
           <p className="secao-etiqueta">Catálogo Selecionado</p>
           <h2 className="secao-titulo">Modelos e Criações Prontas a Imprimir</h2>
 
-          <div className="destaques-grelha">
-            {destaques.map((produto) => (
-              <ProductCard key={produto.id} produto={produto} />
-            ))}
-          </div>
+          {carregando && <p className="secao-texto">A carregar...</p>}
+          {erro && <p className="secao-texto">{erro}</p>}
+          {!carregando && !erro && (
+            <div className="destaques-grelha">
+              {destaques.map((produto) => (
+                <ProductCard key={produto.id} produto={produto} />
+              ))}
+            </div>
+          )}
         </div>
       </section>
       {/* 4. Passo a passo */}
