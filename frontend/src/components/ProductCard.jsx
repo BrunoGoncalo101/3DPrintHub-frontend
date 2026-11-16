@@ -25,8 +25,12 @@ export default function ProductCard({ produto }) {
         {/* Só aparece se o produto tiver extras nos mocks */}
         {produto.avaliacao && (
           <div className="cartao-detalhes">
-            <span>★ {produto.avaliacao.toFixed(1)} ({produto.numAvaliacoes})</span>
-            <span className="cartao-camada">{produto.alturaCamada.toFixed(2)}mm</span>
+            <span>
+              ★ {produto.avaliacao.toFixed(1)} ({produto.numAvaliacoes})
+            </span>
+            <span className="cartao-camada">
+              {produto.alturaCamada.toFixed(2)}mm
+            </span>
           </div>
         )}
 

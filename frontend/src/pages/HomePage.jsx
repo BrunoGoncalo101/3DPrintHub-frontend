@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react"; 
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../styles/HomePage.css";
 import ProductCard from "../components/ProductCard.jsx";
-import { get } from "../services/API.js"; 
-import { juntarExtrasProduto } from "../mocks/produtos.js"; 
+import { get } from "../services/API.js";
+import { juntarExtrasProduto } from "../mocks/produtos.js";
 
 // Os 3 números da secção de topo
 const numeros = [
@@ -13,27 +13,46 @@ const numeros = [
 ];
 // As 4 garantias da secção de topo
 const garantias = [
-  { icone: "local_shipping", titulo: "Despacho 24/48h", texto: "Portugal e Espanha" },
-  { icone: "verified", titulo: "Materiais Certificados", texto: "Polímeros industriais ISO" },
-  { icone: "square_foot", titulo: "Precisão ±0.05 mm", texto: "Inspeção dimensional" },
-  { icone: "engineering", titulo: "Suporte Técnico", texto: "Revisão por engenheiros" },
+  {
+    icone: "local_shipping",
+    titulo: "Despacho 24/48h",
+    texto: "Portugal e Espanha",
+  },
+  {
+    icone: "verified",
+    titulo: "Materiais Certificados",
+    texto: "Polímeros industriais ISO",
+  },
+  {
+    icone: "square_foot",
+    titulo: "Precisão ±0.05 mm",
+    texto: "Inspeção dimensional",
+  },
+  {
+    icone: "engineering",
+    titulo: "Suporte Técnico",
+    texto: "Revisão por engenheiros",
+  },
 ];
 // Passo a passo do processo de impressão 3D
 const passos = [
   {
     numero: "01 / UPLOAD",
     titulo: "Upload do Ficheiro 3D",
-    texto: "Carrega formatos .STL, .OBJ ou .STEP. O motor avalia espessuras mínimas, integridade da malha e orientação em segundos.",
+    texto:
+      "Carrega formatos .STL, .OBJ ou .STEP. O motor avalia espessuras mínimas, integridade da malha e orientação em segundos.",
   },
   {
     numero: "02 / CONFIGURAÇÃO",
     titulo: "Tecnologia e Polímero",
-    texto: "Escolhe entre FDM de precisão, Resina SLA 8K ou Nylon PA12-CF. Define densidade de preenchimento e acabamentos.",
+    texto:
+      "Escolhe entre FDM de precisão, Resina SLA 8K ou Nylon PA12-CF. Define densidade de preenchimento e acabamentos.",
   },
   {
     numero: "03 / EXPEDIÇÃO",
     titulo: "Produção e Envio 24h",
-    texto: "Fabrico em sala de ambiente controlado, verificação metrológica individual e embalagem industrial com envio rastreado.",
+    texto:
+      "Fabrico em sala de ambiente controlado, verificação metrológica individual e embalagem industrial com envio rastreado.",
   },
 ];
 
@@ -45,11 +64,11 @@ export default function Home() {
 
   // Pede os produtos ao back quando a página abre
   useEffect(() => {
-    let ativo = true; 
+    let ativo = true;
 
     get("/produtos")
       .then((dados) => {
-        if (ativo) setProdutos(dados.map(juntarExtrasProduto)); 
+        if (ativo) setProdutos(dados.map(juntarExtrasProduto));
       })
       .catch((e) => {
         if (ativo) setErro(e.message);
@@ -71,13 +90,14 @@ export default function Home() {
         <div className="home-conteudo">
           <h1 className="topo-titulo">
             A engenharia da <br />
-            <span className="texto-gradiente">Impressão 3D</span> ao teu alcance.
+            <span className="texto-gradiente">Impressão 3D</span> ao teu
+            alcance.
           </h1>
 
           <p className="topo-texto">
-            Transformamos modelos digitais em peças funcionais de rigor industrial e
-            acabamento de exposição. FDM de alta velocidade, SLA Resina 8K e polímeros
-            reforçados com fibra de carbono.
+            Transformamos modelos digitais em peças funcionais de rigor
+            industrial e acabamento de exposição. FDM de alta velocidade, SLA
+            Resina 8K e polímeros reforçados com fibra de carbono.
           </p>
 
           <div className="topo-botoes">
@@ -102,7 +122,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-         {/* 2. Barra de garantias */}
+      {/* 2. Barra de garantias */}
       <section className="home-garantias">
         <div className="home-conteudo garantias-grelha">
           {garantias.map((item) => (
@@ -116,11 +136,13 @@ export default function Home() {
           ))}
         </div>
       </section>
-       {/* 3. Produtos em destaque */}
+      {/* 3. Produtos em destaque */}
       <section className="home-secao">
         <div className="home-conteudo">
           <p className="secao-etiqueta">Catálogo Selecionado</p>
-          <h2 className="secao-titulo">Modelos e Criações Prontas a Imprimir</h2>
+          <h2 className="secao-titulo">
+            Modelos e Criações Prontas a Imprimir
+          </h2>
 
           {carregando && <p className="secao-texto">A carregar...</p>}
           {erro && <p className="secao-texto">{erro}</p>}
@@ -136,11 +158,13 @@ export default function Home() {
       {/* 4. Passo a passo */}
       <section className="home-secao home-secao-escura">
         <div className="home-conteudo">
-          <p className="secao-etiqueta etiqueta-violeta">Workflow Automatizado</p>
+          <p className="secao-etiqueta etiqueta-violeta">
+            Workflow Automatizado
+          </p>
           <h2 className="secao-titulo">Como Funciona o Serviço Sob Medida</h2>
           <p className="secao-texto">
-            Do teu ficheiro CAD para a tua morada num fluxo rastreado por telemetria e
-            controlo dimensional.
+            Do teu ficheiro CAD para a tua morada num fluxo rastreado por
+            telemetria e controlo dimensional.
           </p>
 
           <div className="passos-grelha">

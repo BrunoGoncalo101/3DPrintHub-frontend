@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react"; 
-import { get } from "../services/API.js"; 
-import { juntarExtrasMaterial } from "../mocks/materiais.js"; 
+import { useState, useEffect } from "react";
+import { get } from "../services/API.js";
+import { juntarExtrasMaterial } from "../mocks/materiais.js";
 import "../styles/MaterialsPage.css";
 
 // Formata o preço por grama (ex.: 0.025 -> "0,025 €")
@@ -20,7 +20,7 @@ export default function MaterialsPage() {
 
   // Pede os materiais ao back quando a página abre
   useEffect(() => {
-    let ativo = true; 
+    let ativo = true;
 
     get("/materiais")
       .then((dados) => {
@@ -42,7 +42,8 @@ export default function MaterialsPage() {
     <section className="materiais">
       <h1>Materiais & Fichas Técnicas</h1>
       <p className="materiais-intro">
-        Compara os materiais que usamos para escolher o mais indicado para a tua peça.
+        Compara os materiais que usamos para escolher o mais indicado para a tua
+        peça.
       </p>
 
       {/* Mensagens enquanto carrega ou se der erro */}
@@ -70,7 +71,9 @@ export default function MaterialsPage() {
                   <td>
                     {/* Name e pricePerGram vêm da API */}
                     <strong>{material.name}</strong>
-                    <span className="materiais-descricao">{material.descricao}</span>
+                    <span className="materiais-descricao">
+                      {material.descricao}
+                    </span>
                   </td>
                   <td>{formatarPreco(material.pricePerGram)}</td>
                   <td>{material.density.toLocaleString("pt-PT")} g/cm³</td>

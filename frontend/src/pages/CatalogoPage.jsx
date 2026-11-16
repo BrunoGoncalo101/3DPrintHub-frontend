@@ -1,9 +1,8 @@
-import { useState, useEffect } from "react"; 
+import { useState, useEffect } from "react";
 import ProductCard from "../components/ProductCard.jsx";
-import { get } from "../services/API.js"; 
-import { juntarExtrasProduto } from "../mocks/produtos.js"; 
+import { get } from "../services/API.js";
+import { juntarExtrasProduto } from "../mocks/produtos.js";
 import "../styles/CatalogoPage.css";
-
 
 const TODAS = "Todos os Artigos";
 
@@ -30,18 +29,17 @@ function ordenar(lista, ordem) {
 
   if (ordem === "preco-asc") copia.sort((a, b) => a.basePrice - b.basePrice);
   if (ordem === "preco-desc") copia.sort((a, b) => b.basePrice - a.basePrice);
-  if (ordem === "avaliacao") copia.sort((a, b) => (b.avaliacao || 0) - (a.avaliacao || 0));
-  if (ordem === "nome") copia.sort((a, b) => a.name.localeCompare(b.name, "pt"));
+  if (ordem === "avaliacao")
+    copia.sort((a, b) => (b.avaliacao || 0) - (a.avaliacao || 0));
+  if (ordem === "nome")
+    copia.sort((a, b) => a.name.localeCompare(b.name, "pt"));
 
   return copia;
 }
 
 //Normalização, passa tudo para minusculo e sem acentos.
 function normalizar(texto) {
-  return texto
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "");
+  return texto.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
 }
 
 export default function CatalogoPage() {
@@ -80,7 +78,9 @@ export default function CatalogoPage() {
   // Lista de categorias tirada dos produtos (sem repetidos)
   const categorias = [
     TODAS,
-    ...new Set(produtos.map((produto) => produto.category?.name).filter(Boolean)),
+    ...new Set(
+      produtos.map((produto) => produto.category?.name).filter(Boolean),
+    ),
   ];
 
   // É a lista de materiais, tirada dos produtos (não há repetidos)
@@ -97,7 +97,8 @@ export default function CatalogoPage() {
     const nome = normalizar(produto.name);
     const textoPesquisa = normalizar(pesquisa.trim());
 
-    if (categoriaAtiva !== TODAS && produto.category?.name !== categoriaAtiva) return false;
+    if (categoriaAtiva !== TODAS && produto.category?.name !== categoriaAtiva)
+      return false;
     if (!nome.includes(textoPesquisa)) return false;
     if (material !== "" && produto.material !== material) return false;
     if (produto.basePrice < intervalo.min) return false;
@@ -209,7 +210,9 @@ export default function CatalogoPage() {
           <button
             key={categoria}
             type="button"
-            className={categoria === categoriaAtiva ? "filtro filtro-ativo" : "filtro"}
+            className={
+              categoria === categoriaAtiva ? "filtro filtro-ativo" : "filtro"
+            }
             onClick={() => setCategoriaAtiva(categoria)}
           >
             {categoria}

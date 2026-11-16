@@ -37,36 +37,36 @@ function RegistoPage() {
   const forca = cumpridos === 3 ? "Forte" : cumpridos === 2 ? "Média" : "Fraca";
   const coincidem = form.confirmar !== "" && form.password === form.confirmar;
 
- async function handleSubmit(e) {
-  e.preventDefault();
-  if (!coincidem) {
-    setErro("As palavras-passe não coincidem");
-    return;
+  async function handleSubmit(e) {
+    e.preventDefault();
+    if (!coincidem) {
+      setErro("As palavras-passe não coincidem");
+      return;
+    }
+    setErro("");
+    setASubmeter(true);
+    try {
+      await registar({
+        nome: form.nome,
+        email: form.email,
+        password: form.password,
+        termos: form.termos,
+      });
+      navigate("/login");
+    } catch (err) {
+      setErro(err.message);
+    } finally {
+      setASubmeter(false);
+    }
   }
-  setErro("");
-  setASubmeter(true);
-  try {
-    await registar({
-      nome: form.nome,
-      email: form.email,
-      password: form.password,
-      termos: form.termos,
-    });
-    navigate("/login");
-  } catch (err) {
-    setErro(err.message);
-  } finally {
-    setASubmeter(false);
-  }
-}
   return (
     <main className="rg-page">
       {/* Coluna esquerda */}
       <section className="rg-card">
         <h1>Infraestrutura Industrial Dedicada</h1>
         <p className="rg-suave">
-          Centralize encomendas CAD, validação de tolerâncias micron e ensaios de
-          tração em polímeros de engenharia na mais avançada rede nacional.
+          Centralize encomendas CAD, validação de tolerâncias micron e ensaios
+          de tração em polímeros de engenharia na mais avançada rede nacional.
         </p>
 
         <div className="rg-stats">
@@ -167,7 +167,9 @@ function RegistoPage() {
                 ))}
               </div>
               <div className="rg-criterios">
-                <span className={criterios.tamanho ? "ok" : ""}>✓ min. 8 caracteres</span>
+                <span className={criterios.tamanho ? "ok" : ""}>
+                  ✓ min. 8 caracteres
+                </span>
                 <span className={criterios.numero ? "ok" : ""}>✓ número</span>
                 <span className={criterios.simbolo ? "ok" : ""}>✓ símbolo</span>
               </div>
@@ -187,7 +189,11 @@ function RegistoPage() {
                 required
               />
               {form.confirmar && (
-                <p className={coincidem ? "rg-msg rg-verde" : "rg-msg rg-vermelho"}>
+                <p
+                  className={
+                    coincidem ? "rg-msg rg-verde" : "rg-msg rg-vermelho"
+                  }
+                >
                   {coincidem
                     ? "✓ As palavras-passe coincidem"
                     : "✗ As palavras-passe não coincidem"}
@@ -219,10 +225,10 @@ function RegistoPage() {
             />
             <span>Receber atualizações de novos materiais técnicos.</span>
           </label>
-{erro && <p className="rg-msg rg-vermelho">{erro}</p>}
+          {erro && <p className="rg-msg rg-vermelho">{erro}</p>}
           <button type="submit" className="rg-btn" disabled={aSubmeter}>
-  {aSubmeter ? "A criar conta..." : "🚀 Criar Conta"}
-</button>
+            {aSubmeter ? "A criar conta..." : "🚀 Criar Conta"}
+          </button>
 
           <p className="rg-ja-tem">
             Já tens uma conta? <Link to="/login">Iniciar sessão →</Link>

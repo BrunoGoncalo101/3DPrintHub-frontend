@@ -42,7 +42,7 @@ export default function App() {
             path="/checkout"
             element={
               <RotaProtegida>
-              <CheckoutPage />
+                <CheckoutPage />
               </RotaProtegida>
             }
           />
