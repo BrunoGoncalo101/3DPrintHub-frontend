@@ -349,3 +349,14 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Erro devolvido pela API */
+.carrinho-erro {
+  margin: 0 0 16px;
+  padding: 12px 16px;
+  font-size: 14px;
+  color: var(--cor-erro);
+  background-color: rgba(239, 68, 68, 0.1);
+  border: 1px solid var(--cor-erro);
+  border-radius: var(--raio);
+}

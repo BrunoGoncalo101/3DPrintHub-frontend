@@ -176,3 +176,23 @@
   }
 }
  
+/* Modo admin provisório: etiqueta junto à marca e botão para entrar/sair */
+.marca-admin {
+  margin-left: 8px;
+  padding: 2px 8px;
+  font-family: monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--cor-secundaria);
+  background-color: rgba(56, 189, 248, 0.12);
+  border: 1px solid var(--cor-secundaria);
+  border-radius: 4px;
+}
+
+.botao-modo-admin {
+  margin-left: auto;
+  margin-right: 12px;
+  padding: 3px 10px;
+  font-size: 12px;
+}

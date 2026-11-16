@@ -12,8 +12,15 @@ import RotaProtegida from "./components/RotaProtegida.jsx";
 import MaterialsPage from "./pages/MaterialsPage.jsx";
 import OrdersPage from "./pages/OrdersPage.jsx";
 import OrderDetailPage from "./pages/OrderDetailPage.jsx";
+import RotaAdmin from "./components/RotaAdmin.jsx";
+import AdminEncomendasPage from "./pages/AdminEncomendasPage.jsx";
+import AdminEncomendaPage from "./pages/AdminEncomendaPage.jsx";
+import AdminFicheirosPage from "./pages/AdminFicheirosPage.jsx";
+import { useAdmin } from "./context/useAdmin.js";
 
 export default function App() {
+  const { modoAdmin } = useAdmin();
+
   return (
     <>
       <Header />
@@ -23,7 +30,14 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/catalogo" element={<CatalogoPage />} />
           <Route path="/produtos/:id" element={<ProductPage />} />
-          <Route path="/carrinho" element={<CartPage />} />
+          <Route
+            path="/carrinho"
+            element={
+              <RotaProtegida>
+                <CartPage />
+              </RotaProtegida>
+            }
+          />
           <Route
             path="/checkout"
             element={
@@ -48,6 +62,30 @@ export default function App() {
               </RotaProtegida>
             }
           />
+          <Route
+            path="/admin/encomendas"
+            element={
+              <RotaAdmin>
+                <AdminEncomendasPage />
+              </RotaAdmin>
+            }
+          />
+          <Route
+            path="/admin/encomendas/:numero"
+            element={
+              <RotaAdmin>
+                <AdminEncomendaPage />
+              </RotaAdmin>
+            }
+          />
+          <Route
+            path="/admin/ficheiros"
+            element={
+              <RotaAdmin>
+                <AdminFicheirosPage />
+              </RotaAdmin>
+            }
+          />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/registo" element={<RegistoPage />} />
           <Route path="/materiais" element={<MaterialsPage />} />
@@ -55,7 +93,8 @@ export default function App() {
         </Routes>
       </main>
 
-      <Footer />
+      {/* A área de admin não tem rodapé */}
+      {!modoAdmin && <Footer />}
     </>
   );
 }

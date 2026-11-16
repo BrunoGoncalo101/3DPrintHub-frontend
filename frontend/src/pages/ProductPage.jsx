@@ -6,6 +6,7 @@ import { get } from "../services/API.js";
 import { juntarExtrasProduto } from "../mocks/produtos.js"; 
 import { juntarExtrasMaterial } from "../mocks/materiais.js"; 
 import { useCarrinho } from "../context/useCarrinho.js";
+import { useAuth } from "../context/useAuth.js";
 import { QUANTIDADE_MAXIMA } from "../context/CarrinhoContext.js";
 import "../styles/ProductPage.css";
 
@@ -20,7 +21,9 @@ function DetalheProduto({ produto, materiais, produtos }) {
   const [corId, setCorId] = useState(null);
   const [quantidade, setQuantidade] = useState(1);
   const { adicionar } = useCarrinho();
+  const { autenticado } = useAuth();
   const [adicionado, setAdicionado] = useState(false);
+  const [erroCarrinho, setErroCarrinho] = useState("");
 
   // O material escolhido decide quais cores aparecem
   const material = materiais.find((m) => m.id === materialId);
@@ -48,26 +51,28 @@ function DetalheProduto({ produto, materiais, produtos }) {
     setAdicionado(false);
   }
 
-function adicionarAoCarrinho() {
+  async function adicionarAoCarrinho() {
     if (faltaEscolher) return; // segurança extra: o botão já está desativado
 
-    adicionar({
-      // o id junta produto, material e cor: a mesma combinação soma quantidade
-      id: `${produto.id}-${material.id}-${cor.id}`,
-      tipo: "catalogo",
-      origem: "Catálogo oficial",
-      sku: null,
-      nome: produto.name, 
-      etiqueta: material.name, 
-      precoUnitario: produto.basePrice, 
+    setAdicionado(false);
+    setErroCarrinho("");
+
+    // O carrinho é de cada cliente, por isso é preciso ter sessão
+    if (!autenticado) {
+      setErroCarrinho("Inicia sessão para adicionar ao carrinho.");
+      return;
+    }
+
+    // A API soma a quantidade se o produto, o material e a cor já estiverem no carrinho
+    const erro = await adicionar({
+      produtoId: produto.id,
+      materialId: material.id,
+      corId: cor.id,
       quantidade,
-      detalhes: [
-        { rotulo: "Material", valor: material.name }, 
-        { rotulo: "Cor", valor: cor.nome },
-        { rotulo: "Camada", valor: `${produto.alturaCamada}mm` },
-      ],
     });
-    setAdicionado(true);
+
+    if (erro) setErroCarrinho(erro);
+    else setAdicionado(true);
   }
 
    return (
@@ -192,6 +197,13 @@ function adicionarAoCarrinho() {
           {adicionado && (
             <p className="produto-adicionado" role="status">
               ✓ Adicionado ao carrinho. <Link to="/carrinho">Ver carrinho</Link>
+            </p>
+          )}
+
+          {erroCarrinho && (
+            <p className="produto-aviso" role="alert">
+              {erroCarrinho}{" "}
+              {!autenticado && <Link to="/login">Entrar</Link>}
             </p>
           )}
         

@@ -10,8 +10,15 @@ import {
 import "../styles/CartPage.css";
 
 export default function CartPage() {
-  const { itens, subtotal, totalItens, remover, mudarQuantidade } =
-    useCarrinho();
+  const {
+    itens,
+    subtotal,
+    totalItens,
+    carregando,
+    erro,
+    remover,
+    mudarQuantidade,
+  } = useCarrinho();
   const navigate = useNavigate();
   const [cupao, setCupao] = useState("");
   const [avisoCupao, setAvisoCupao] = useState("");
@@ -37,7 +44,13 @@ export default function CartPage() {
         para produção aditiva no laboratório do Porto.
       </p>
 
-      {itens.length === 0 ? (
+      {erro && <p className="carrinho-erro">{erro}</p>}
+
+      {carregando ? (
+        <div className="carrinho-vazio">
+          <p>A carregar o carrinho...</p>
+        </div>
+      ) : itens.length === 0 ? (
         <div className="carrinho-vazio">
           <p>O carrinho está vazio.</p>
           <Link to="/" className="carrinho-link">

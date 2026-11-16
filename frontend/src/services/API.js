@@ -47,3 +47,5 @@ export const post = (caminho, corpo) =>
 export const put = (caminho, corpo) =>
   pedido(caminho, { method: "PUT", body: JSON.stringify(corpo) });
 export const del = (caminho) => pedido(caminho, { method: "DELETE" });
+export const patch = (caminho, corpo) =>
+  pedido(caminho, { method: "PATCH", body: JSON.stringify(corpo) });
