@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "../components/Button.jsx";
 import { useCarrinho } from "../context/useCarrinho.js";
+import { criarEncomenda } from "../services/encomendasService.js";
 import { calcularTotais, formatarPreco } from "../utils/precos.js";
 import {
   validarCodigoPostal,
@@ -39,11 +40,6 @@ const DADOS_VAZIOS = {
   denominacao: "",
   telemovelMbway: "",
 };
-
-// Número de encomenda falso, só até o back-end gerar o verdadeiro
-function gerarNumeroEncomenda() {
-  return `3DH-${Date.now().toString().slice(-6)}`;
-}
 
 // Devolve um objeto com a mensagem de erro de cada campo inválido
 function validar(dados, tipoCliente, metodo, aceitou) {
@@ -104,6 +100,8 @@ export default function CheckoutPage() {
   const [aceitou, setAceitou] = useState(false);
   const [erros, setErros] = useState({});
   const [confirmacao, setConfirmacao] = useState(null);
+  const [aEnviar, setAEnviar] = useState(false);
+  const [erroApi, setErroApi] = useState("");
 
   const { portesGratis, portes, total, iva } = calcularTotais(
     subtotal,
@@ -114,18 +112,31 @@ export default function CheckoutPage() {
     setDados((atual) => ({ ...atual, [campo]: valor }));
   }
 
-  function confirmar() {
+  async function confirmar() {
     const novosErros = validar(dados, tipoCliente, metodo, aceitou);
     setErros(novosErros);
     if (Object.keys(novosErros).length > 0) return;
 
-    // Por enquanto o pagamento é simulado: o back-end ainda não está ligado
-    setConfirmacao({
-      numero: gerarNumeroEncomenda(),
-      total,
-      email: dados.email.trim(),
-    });
-    limpar();
+    setErroApi("");
+    setAEnviar(true);
+
+    try {
+      // A API cria a encomenda com o carrinho e devolve o número
+      const moradaEntrega = `${dados.nome.trim()}, ${dados.morada.trim()}, ${dados.codigoPostal.trim()} ${dados.localidade.trim()}`;
+      const encomenda = await criarEncomenda(moradaEntrega);
+
+      setConfirmacao({
+        numero: encomenda.numero,
+        total, // o total que o cliente viu (com portes), a API só soma os artigos
+        email: dados.email.trim(),
+      });
+      limpar(); // o back-end já esvaziou o carrinho
+    } catch (e) {
+      // Mostra o erro da API e deixa o carrinho como está
+      setErroApi(e.message);
+    } finally {
+      setAEnviar(false);
+    }
   }
 
   // Encomenda concluída
@@ -142,7 +153,7 @@ export default function CheckoutPage() {
           a confirmação para {confirmacao.email}.
         </p>
         <p className="checkout-nota">
-          Pagamento simulado: ainda não está ligado ao back-end.
+          Pagamento simulado: o back-end ainda não tem pagamentos.
         </p>
         <Link to="/" className="checkout-link">
           ← Voltar à página inicial
@@ -364,8 +375,12 @@ export default function CheckoutPage() {
             </label>
             {erros.termos && <p className="checkout-erro">{erros.termos}</p>}
 
-            <Button onClick={confirmar}>
-              Confirmar e Pagar {formatarPreco(total)} →
+            {erroApi && <p className="checkout-erro">{erroApi}</p>}
+
+            <Button onClick={confirmar} desativado={aEnviar}>
+              {aEnviar
+                ? "A processar..."
+                : `Confirmar e Pagar ${formatarPreco(total)} →`}
             </Button>
 
             <p className="checkout-garantias">
