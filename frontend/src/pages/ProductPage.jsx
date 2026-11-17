@@ -116,17 +116,17 @@ function DetalheProduto({ produto, materiais, produtos }) {
         </div>
 
         <div className="produto-info">
-          {/* ALTERADO (tarefa 92): category.name e name vêm da API */}
+          {/* category.name e name vêm da API */}
           <p className="produto-categoria">{produto.category?.name}</p>
           <h1>{produto.name}</h1>
-          {/* ALTERADO (tarefa 92): a avaliação vem dos mocks, só aparece se existir */}
+          {/* A avaliação vem dos mocks, só aparece se existir */}
           {produto.avaliacao && (
             <p className="produto-avaliacao">
               ★ {produto.avaliacao.toFixed(1)}{" "}
               <span>({produto.numAvaliacoes} avaliações verificadas)</span>
             </p>
           )}
-          {/* NOVO (tarefa 92): as dimensões vêm da API */}
+          {/* As dimensões vêm da API */}
           {produto.dimensions && (
             <p className="produto-avaliacao">
               Dimensões: <span>{produto.dimensions}</span>
@@ -139,7 +139,7 @@ function DetalheProduto({ produto, materiais, produtos }) {
           </p>
           <p className="produto-descricao">{produto.description}</p>
 
-          {/* ALTERADO (tarefa 92): os materiais vêm da API (m.name) */}
+          {/* Os materiais vêm da API (m.name) */}
           <p className="produto-titulo-opcao">Material</p>
           <div className="produto-opcoes">
             {materiais.map((m) => (
@@ -254,14 +254,14 @@ function CarregarProduto({ id }) {
     let ativo = true; // evita atualizar a página se o utilizador já saiu dela
 
     // Os 3 pedidos vão ao mesmo tempo
-    Promise.all([get(`/produtos/${id}`), get("/materiais"), get("/produtos")])
+    Promise.all([get(`/produtos/${id}`), get("/materiais"), get("/produtos?size=100")])
       .then(([produto, materiais, produtos]) => {
         if (!ativo) return;
         // Junta a cada produto e material os extras dos mocks
         setDados({
           produto: juntarExtrasProduto(produto),
           materiais: materiais.map(juntarExtrasMaterial),
-          produtos: produtos.map(juntarExtrasProduto),
+          produtos: (Array.isArray(produtos) ? produtos : produtos.content || []).map(juntarExtrasProduto), // ALTERADO
         });
       })
       .catch((e) => {
