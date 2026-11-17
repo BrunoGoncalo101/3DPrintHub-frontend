@@ -18,6 +18,7 @@ import AdminEncomendaPage from "./pages/AdminEncomendaPage.jsx";
 import AdminFicheirosPage from "./pages/AdminFicheirosPage.jsx";
 import { useAdmin } from "./context/useAdmin.js";
 import ImpressaoPage from "./pages/ImpressaoPage.jsx";
+import PedidosPage from "./pages/PedidosPage.jsx";
 
 export default function App() {
   const { modoAdmin } = useAdmin();
@@ -28,6 +29,12 @@ export default function App() {
 
       <main>
         <Routes>
+          <Route path="/pedidos"element={
+    <RotaProtegida>
+      <PedidosPage />
+    </RotaProtegida>
+  }
+/>
           <Route path="/impressao" element={ 
             <RotaProtegida> 
               <ImpressaoPage />
