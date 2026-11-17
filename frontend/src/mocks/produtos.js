@@ -89,5 +89,12 @@ const extras = [
 // Se não houver extras para esse id, o produto fica só com os dados da API.
 export function juntarExtrasProduto(produto) {
   const extra = extras.find((e) => e.id === produto.id);
-  return { ...extra, ...produto };
+
+  // NOVO: "/images/..." passa a "http://localhost:8080/images/..."
+  const imageUrl =
+    produto.imageUrl && !produto.imageUrl.startsWith("http")
+      ? `http://localhost:8080${produto.imageUrl}`
+      : produto.imageUrl;
+
+  return { ...extra, ...produto, imageUrl }; 
 }
