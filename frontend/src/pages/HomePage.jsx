@@ -66,9 +66,10 @@ export default function Home() {
   useEffect(() => {
     let ativo = true;
 
-    get("/produtos")
+    get("/produtos?size=100")
       .then((dados) => {
-        if (ativo) setProdutos(dados.map(juntarExtrasProduto));
+      const lista = Array.isArray(dados) ? dados : dados.content || [];
+       if (ativo) setProdutos(lista.map(juntarExtrasProduto)); // ALTERADO: dados -> lista
       })
       .catch((e) => {
         if (ativo) setErro(e.message);
