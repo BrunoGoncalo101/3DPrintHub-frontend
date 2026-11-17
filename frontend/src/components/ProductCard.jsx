@@ -9,13 +9,16 @@ function formatarPreco(valor) {
 // O produto junta os dados da API (name, description, basePrice, imageUrl, dimensions) com os extras dos mocks (material, avaliacao, alturaCamada, precoAntigo)
 export default function ProductCard({ produto }) {
   const navigate = useNavigate();
-
+  const urlImagem = produto.imageUrl && !produto.imageUrl.startsWith("http")
+  ? `http://localhost:8080${produto.imageUrl}`
+  : produto.imageUrl
+  
   return (
     <article className="cartao-produto">
       <div className="cartao-imagem">
         <span className="cartao-material">{produto.material}</span>
         {produto.imageUrl ? (
-          <img src={produto.imageUrl} alt={produto.name} />
+          <img src={urlImagem} alt={produto.name} />
         ) : (
           <span className="cartao-sem-imagem">⬡</span>
         )}

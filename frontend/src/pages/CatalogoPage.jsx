@@ -55,13 +55,22 @@ export default function CatalogoPage() {
   const [precoId, setPrecoId] = useState("todos");
   const [ordem, setOrdem] = useState("relevancia");
 
-  // Pede os produtos ao back quando a página abre
+  // Pede produtos e categorias ao back quando a página abre
   useEffect(() => {
     let ativo = true; // evita atualizar a página se o utilizador já saiu dela
 
-    get("/produtos")
-      .then((dados) => {
-        if (ativo) setProdutos(dados.map(juntarExtrasProduto)); // junta os extras dos mocks
+    Promise.all([get("/produtos?size=100"), get("/categorias")]) 
+      .then(([dados, categoriasApi]) => {
+        // Aceita lista simples ou resposta paginada
+        const lista = Array.isArray(dados) ? dados : dados.content || [];
+
+        // Junta o nome da categoria a cada produto, a partir do categoryId
+        const comCategoria = lista.map((produto) => ({
+          ...produto,
+          category: categoriasApi.find((c) => c.id === produto.categoryId),
+        }));
+
+        if (ativo) setProdutos(comCategoria.map(juntarExtrasProduto));
       })
       .catch((e) => {
         if (ativo) setErro(e.message);

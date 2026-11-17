@@ -68,7 +68,8 @@ export default function Home() {
 
     get("/produtos")
       .then((dados) => {
-        if (ativo) setProdutos(dados.map(juntarExtrasProduto));
+      const lista = Array.isArray(dados) ? dados : dados.content || [];
+       if (ativo) setProdutos(lista.map(juntarExtrasProduto)); // ALTERADO: dados -> lista
       })
       .catch((e) => {
         if (ativo) setErro(e.message);
