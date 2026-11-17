@@ -66,7 +66,7 @@ export default function Home() {
   useEffect(() => {
     let ativo = true;
 
-    get("/produtos")
+    get("/produtos?size=100")
       .then((dados) => {
       const lista = Array.isArray(dados) ? dados : dados.content || [];
        if (ativo) setProdutos(lista.map(juntarExtrasProduto)); // ALTERADO: dados -> lista
